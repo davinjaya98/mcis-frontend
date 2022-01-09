@@ -548,6 +548,12 @@ label {
 .d-block-important {
   display: block !important;
 }
+.d-none {
+  display: none;
+}
+.d-block {
+  display: block;
+}
 
 .d-none {
   display: none;
@@ -558,7 +564,7 @@ label {
 
 .agent-details-wrapper {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 .agent-details-wrapper .agent-details {
