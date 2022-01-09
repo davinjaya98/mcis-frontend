@@ -654,6 +654,14 @@ ol li {
   margin-top: 10px;
 }
 
+.interview-table {
+  overflow-x: scroll;
+}
+
+.interview-table .table-wrapper {
+  min-width: 965px;
+}
+
 @media only screen and (max-width: 424px) {
   .d-flex.flex-wrap {
     flex-direction: column;
@@ -824,5 +832,9 @@ ol li {
 
   .flex-50 {
     padding: 0 16px;
+  }
+
+  .interview-table .table-wrapper {
+    min-width: auto;
   }
 }
