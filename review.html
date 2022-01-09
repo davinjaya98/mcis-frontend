@@ -19,21 +19,31 @@
 </head>
 
 <body>
-  <div class="agent-details-wrapper margin-top-25 margin-bottom-25">
-    <div class="agent-details margin-right-50">
-      <div><a style="color: #707070; font-weight: 400" href="javascript:void(0)" onclick="callLoader(); 
-        setTimeout(function(){ window.location.href = '${landLink!}'; }, 300);">Home</a></div>
-      <div class="margin-left-10 margin-right-10"></div>
-      <div><u>Applicant Details</u></div>
-      <div class="margin-left-10 margin-right-10"></div>
-      <div><a style="color: #707070; font-weight: 400" href="javascript:void(0)" onclick="callLoader(); 
-        setTimeout(function(){ window.location.href = '${decLink!}'; }, 300);">Product Overview & CFF Declaration</a></div>
-      <div class="margin-left-10 margin-right-10"></div>
-      <div><a style="color: #707070; font-weight: 400" href="javascript:void(0)" onclick="callLoader(); 
-        setTimeout(function(){ window.location.href = '${intLink!}'; }, 300);">Interview</a></div>
-      <div class="margin-left-10 margin-right-10"></div>
-      <div><a style="color: #707070; font-weight: 400" href="javascript:void(0)" onclick="callLoader(); 
-        setTimeout(function(){ window.location.href = '${ledLink!}'; }, 300);">Agency Leader Report</a></div>
+  <div class="erecruit-navbar-wrapper">
+    <div class="erecruit-navbar">
+      <div>
+        <a href="javascript:void(0)" onclick="callLoader(); setTimeout(function(){ window.location.href = '${landLink!}'; }, 300);">
+          Home
+        </a>
+      </div>
+      <div>
+        <u>Applicant Details</u>
+      </div>
+      <div>
+        <a href="javascript:void(0)" onclick="callLoader(); setTimeout(function(){ window.location.href = '${decLink!}'; }, 300);">
+          Product Overview & CFF Declaration
+        </a>
+      </div>
+      <div>
+        <a href="javascript:void(0)" onclick="callLoader(); setTimeout(function(){ window.location.href = '${intLink!}'; }, 300);">
+          Interview
+        </a>
+      </div>
+      <div>
+        <a href="javascript:void(0)" onclick="callLoader(); setTimeout(function(){ window.location.href = '${ledLink!}'; }, 300);">
+          Agency Leader Report
+        </a>
+      </div>
     </div>
   </div>
   <div class="erecruit-form-container review-form" ng-controller="formController"
