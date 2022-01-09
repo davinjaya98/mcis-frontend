@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MCIS">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>eRecruit Form</title>
+  <link rel="stylesheet" href="bootstrap.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="main.css">
+  <link rel="stylesheet" href="simplesearch.css">
+  <link rel="stylesheet" href="jquery-ui.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+    integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="signature_pad.min.js"></script>
+  <script src="angular.min.js"></script>
+</head>
+
+<body>
+  <div class="erecruit-navbar-wrapper">
+    <div class="erecruit-navbar">
+      <div>
+        <a style="color: #707070; font-weight: 400" href="javascript:void(0)"
+          onclick="callLoader(); setTimeout(function(){ window.location.href = '${landLink!}'; }, 300);">
+          Home
+        </a>
+      </div>
+      <div>
+        <a style="color: #707070; font-weight: 400" href="javascript:void(0)"
+          onclick="callLoader(); setTimeout(function(){ window.location.href = '${reviewLink!}'; }, 300);">
+          Applicant Details
+        </a>
+      </div>
+      <div>
+        <a href="javascript:void(0)"
+          onclick="callLoader(); setTimeout(function(){ window.location.href = '${decLink!}'; }, 300);">
+          Product Overview & CFF Declaration
+        </a>
+      </div>
+      <div>
+        <a href="javascript:void(0)"
+          onclick="callLoader(); setTimeout(function(){ window.location.href = '${intLink!}'; }, 300);">
+          Interview
+        </a>
+      </div>
+      <div>
+        <u>
+          Agency Leader Report
+        </u>
+      </div>
+    </div>
+  </div>
+  <div class="erecruit-form-container" ng-controller="formController" style="background-color: #f4f4f4">
+    <div class="margin-bottom-25 page-title">
+      <h3>${i18n['eRecruit.recruitLeaderReport.title']!}</h3>
+    </div>
+    <div class="erecruit-form">
+      [#if actionResult == "success"]
+      [#include "/iweb/templates/components/e-recruit/eRecruitSuccessPage.ftl"]
+      [#else]
+      <form name="leaderReportForm" id="leaderReportForm" action="" method="POST" enctype="multipart/form-data"
+        class="form-mcis form-validation" ng-submit="submitForm($event)" role="form" novalidate>
+        <div class="form-item-hidden">
+          <input type="hidden" name="mgnlModelExecutionUUID" value="${content.@id}" />
+          <input type="hidden" name="field" value="" />
+          [#if model.formState?has_content]
+          <input type="hidden" name="mgnlFormToken" value="${model.formState.token!}" />
+          <input type="hidden" name="applicantId" value="${applicantId}" />
+          [/#if]
+          [#if secfn.csrfEnabled]
+          <input type="hidden" name="${secfn.csrfTokenName!}" value="${secfn.csrfTokenValue!}" />
+          [/#if]
+        </div>
+        <!-- end form-item-hidden -->
+        <!-- end form-item-hidden -->
+        <div class="animate-switch-container">
+          <!-- Nomination -->
+          <div class="section">
+            <div class="row">
+              <div class="col-xs-12">
+                <!-- Declaration -->
+                <div class="agreement-section">
+                  <div class="margin-bottom-20">
+                    <p>For each question below, enter the number below that best fits your
+                      opinion <span class="text-danger">*</span>
+                    </p>
+                    <span ng-show="formValidation && (interviewForm.recPersonality.$error.required || interviewForm.recCommunication.$error.required 
+                        || interviewForm.recOrientation.$error.required || interviewForm.recPlanning.$error.required)"
+                      class="small text-danger">
+                      Please fill in each rating.
+                    </span>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                          <label for="applicantKnownDate">How long have you known this
+                            applicant <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                          <div class="form-group">
+                            <select name="applicantKnownDay" id="applicantKnownDay"
+                              class="form-control-mcis selectpicker"
+                              ng-class="{'error': formValidation && leaderReportForm.applicantKnownDay.$error.required}"
+                              ng-model="formParams.applicantKnownDay" required>
+                              <option value="">Day</option>
+                              <option value="01">01</option>
+                              <option value="02">02</option>
+                              <option value="03">03</option>
+                              <option value="04">04</option>
+                              <option value="05">05</option>
+                              <option value="06">06</option>
+                              <option value="07">07</option>
+                              <option value="08">08</option>
+                              <option value="09">09</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                              <option value="13">13</option>
+                              <option value="14">14</option>
+                              <option value="15">15</option>
+                              <option value="16">16</option>
+                              <option value="17">17</option>
+                              <option value="18">18</option>
+                              <option value="19">19</option>
+                              <option value="20">20</option>
+                              <option value="21">21</option>
+                              <option value="22">22</option>
+                              <option value="23">23</option>
+                              <option value="24">24</option>
+                              <option value="25">25</option>
+                              <option value="26">26</option>
+                              <option value="27">27</option>
+                              <option value="28">28</option>
+                              <option value="29">29</option>
+                              <option value="30">30</option>
+                              <option value="31">31</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                          <div class="form-group">
+                            <select name="applicantKnownMonth" id="applicantKnownMonth"
+                              class="form-control-mcis selectpicker"
+                              ng-class="{'error': formValidation && leaderReportForm.applicantKnownMonth.$error.required}"
+                              ng-model="formParams.applicantKnownMonth" required>
+                              <option value="">Month</option>
+                              <option value="01">January</option>
+                              <option value="02">February</option>
+                              <option value="03">March</option>
+                              <option value="04">April</option>
+                              <option value="05">May</option>
+                              <option value="06">June</option>
+                              <option value="07">July</option>
+                              <option value="08">August</option>
+                              <option value="09">September</option>
+                              <option value="10">October</option>
+                              <option value="11">November</option>
+                              <option value="12">December</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-2">
+                          <div class="form-group">
+                            <select name="applicantKnownYear" id="applicantKnownYear"
+                              class="form-control-mcis selectpicker"
+                              ng-class="{'error': formValidation && leaderReportForm.applicantKnownYear.$error.required}"
+                              ng-model="formParams.applicantKnownYear" required>
+                              <option value="">Year</option>
+                              <option ng-repeat="year in yearList" value="{{year}}">
+                                {{year}}</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-offset-3 col-md-5">
+                          <div class="margin-bottom-20">
+                            <span
+                              ng-show="formValidation && (leaderReportForm.applicantKnownDay.$error.required || leaderReportForm.applicantKnownMonth.$error.required || leaderReportForm.applicantKnownYear.$error.required)"
+                              class="small text-danger">
+                              This field is required.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-md-3">
+                          <div class="form-group">
+                            <label for="isApplicantInsured">To the best of your knowledge,
+                              has the applicant or spouse at present representing
+                              MCIS INSURANCE or any other insurers? <span class="text-danger">*</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                          <div class="form-group">
+                            <select name="isApplicantInsured" class="form-control-mcis selectpicker"
+                              ng-class="{'error': formValidation && leaderReportForm.isApplicantInsured.$error.required}"
+                              ng-model="formParams.isApplicantInsured" required>
+                              <option value="">Please Select</option>
+                              <option value="1">Yes</option>
+                              <option value="0">No</option>
+                            </select>
+                            <span ng-show="formValidation && leaderReportForm.isApplicantInsured.$error.required"
+                              class="small text-danger">
+                              This field is required.
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4" ng-hide="leaderReportForm.isApplicantInsured.$viewValue != '1'">
+                          <div class="form-group">
+                            <input type="text" class="form-control-mcis" maxlength="100" id="applicantInsured"
+                              name="applicantInsured" ng-model="formParams.applicantInsured"
+                              ng-class="{'error': formValidation && leaderReportForm.applicantInsured.$error.required}"
+                              ng-required="leaderReportForm.isApplicantInsured.$viewValue == '1'">
+                            <span ng-show="formValidation && leaderReportForm.applicantInsured.$error.required"
+                              class="small text-danger">
+                              Please specify.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row margin-bottom-25">
+                        <div class="col-xs-12 col-md-3">
+                          <div class="form-group">
+                            <label for="isApplicantIssue">Have the applicant or his or her
+                              spouse had any criminal charges/
+                              bankruptcy/liquidation/civil proceedings? <span class="text-danger">*</span></label>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4">
+                          <div class="form-group">
+                            <select name="isApplicantIssue" class="form-control-mcis selectpicker"
+                              ng-class="{'error': formValidation && leaderReportForm.isApplicantIssue.$error.required}"
+                              ng-model="formParams.isApplicantIssue" required>
+                              <option value="">Please Select</option>
+                              <option value="1">Yes</option>
+                              <option value="0">No</option>
+                            </select>
+                            <span ng-show="formValidation && leaderReportForm.isApplicantIssue.$error.required"
+                              class="small text-danger">
+                              This field is required.
+                            </span>
+                          </div>
+                        </div>
+                        <div class="col-xs-12 col-md-4" ng-hide="leaderReportForm.isApplicantIssue.$viewValue != '1'">
+                          <div class="form-group">
+                            <input type="text" class="form-control-mcis" maxlength="100" id="applicantIssue"
+                              name="applicantIssue" ng-model="formParams.applicantIssue"
+                              ng-class="{'error': formValidation && leaderReportForm.applicantIssue.$error.required}"
+                              ng-required="leaderReportForm.isApplicantIssue.$viewValue == '1'">
+                            <span ng-show="formValidation && leaderReportForm.applicantIssue.$error.required"
+                              class="small text-danger">
+                              Please specify.
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row margin-top-25 margin-bottom-25">
+                    <div class="col-xs-12 col-md-offset-2 col-md-8 text-left">
+                      <div class="checkbox custom-checkbox-mcis">
+                        <input id="productCFFDeclarationAgree" name="productCFFDeclarationAgree" type="checkbox"
+                          ng-model="formParams.productCFFDeclarationAgree" ng-true-value="1" ng-false-value="0"
+                          required>
+                        <label for="productCFFDeclarationAgree">
+                          <div class="custom-checkbox"
+                            ng-class="{'custom-checkbox-error' : formValidation && leaderReportForm.productCFFDeclarationAgree.$error.required}">
+                          </div>
+                          <span class="small">
+                            This is to confirm that the applicant has completed
+                            <b>Declaration of Completion for Life Insurance Basic Product
+                              Overview and
+                              Customer Fact Find Form Training</b>.
+                          </span>
+                        </label>
+                      </div>
+                      <div class="checkbox custom-checkbox-mcis">
+                        <input id="policyPDPAAgree" name="policyPDPAAgree" type="checkbox"
+                          ng-model="formParams.policyPDPAAgree" ng-true-value="1" ng-false-value="0" required>
+                        <label for="policyPDPAAgree">
+                          <div class="custom-checkbox"
+                            ng-class="{'custom-checkbox-error' : formValidation && leaderReportForm.policyPDPAAgree.$error.required}">
+                          </div>
+                          <span class="small">
+                            Agent will abide by the policies and procedures stated in the
+                            agent portal/email/PDPA applications.
+                          </span>
+                        </label>
+                      </div>
+                      <div class="checkbox custom-checkbox-mcis">
+                        <input id="falseDeclarationTerminateAgree" name="falseDeclarationTerminateAgree" type="checkbox"
+                          ng-model="formParams.falseDeclarationTerminateAgree" ng-true-value="1" ng-false-value="0"
+                          required>
+                        <label for="falseDeclarationTerminateAgree">
+                          <div class="custom-checkbox"
+                            ng-class="{'custom-checkbox-error' : formValidation && leaderReportForm.falseDeclarationTerminateAgree.$error.required}">
+                          </div>
+                          <span class="small">
+                            This is to certify that I have personally interviewed the
+                            applicant and I am satisfied that the information give in this
+                            application
+                            for the post apply for are true; and I agree that should this
+                            declaration be false in any respect, MCIS INSURANCE reserve the
+                            right
+                            to terminate the agent's Agreement immediately without any
+                            reference to me.
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12 d-flex-center">
+                      [#if model.isApproved(applicantId)]
+                      <button type="button" class="btn btn-primary" ng-click="triggerModal()" disabled>ACCEPT &
+                        SIGN</button>
+                      [#else]
+                      <button type="button" class="btn btn-primary" ng-click="triggerModal()"
+                        ng-disabled="!formParams.productCFFDeclarationAgree || !formParams.policyPDPAAgree || !formParams.falseDeclarationTerminateAgree">ACCEPT
+                        & SIGN</button>
+                      [/#if]
+                      <button type="button" class="btn btn-primary"
+                        onclick="callLoader(); setTimeout(function(){ window.location.href = '${landLink!}'; }, 300);">BACK</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <input type="file" class="hidden" id="esignFileUpload" name="esignFileUpload"
+          ng-model="formParams.esignFileUpload" onchange="angular.element(this).scope().fileUploaded(event)"
+          data-extension="jpeg,jpg,png" data-size="10">
+        <input type="text" class="hidden" id="esignFile" name="esignFile" ng-model="formParams.esignFile">
+        <input id="codeOfEthicsAgreeEsign" name="codeOfEthicsAgreeEsign" type="checkbox" class="hidden"
+          ng-model="formParams.codeOfEthicsAgreeEsign" ng-true-value="1" ng-false-value="0">
+      </form>
+      [/#if]
+    </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="esign-modal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">e-Signature</h4>
+          </div>
+          <div class="modal-body margin-top-25">
+            <div>
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#witness-draw" aria-controls="draw" role="tab"
+                    data-toggle="tab">Draw</a></li>
+                <li role="presentation"><a href="#witness-upload" aria-controls="upload" role="tab"
+                    data-toggle="tab">Upload</a>
+                </li>
+              </ul>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="witness-draw">
+                  <div id="signature-pad" class="signature-pad">
+                    <div class="signature-pad--body">
+                      <canvas style="touch-action: none;" height="400px"></canvas>
+                    </div>
+                    <div class="signature-pad--footer">
+                      <div class="signature-pad--actions">
+                        <div>
+                          <!-- <button type="button" class="btn btn-primary">Upload</button> -->
+                          <button type="button" class="btn btn-primary"
+                            ng-click="clearSignaturePad('signature-pad')">Clear</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="witness-upload">
+                  <div class="signature-pad">
+                    <label class="signature-pad--body upload-pad--body" dropzone input-binding="esignFileUpload">
+                      {{ formParams.esignFileUpload ? formParams.esignFileUpload.name : 'Drag a
+                      file into this area or select a file
+                      (JPEG / JPG / PNG file only)'}}
+                    </label>
+                    <div class="signature-pad--footer">
+                      <div class="signature-pad--actions">
+                        <div>
+                          <!-- <button type="button" class="btn btn-primary">Upload</button> -->
+                          <label for="esignFileUpload" class="btn btn-primary">Upload</label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="esign-content form-mcis" ng-form="subForm">
+                  <div class="row">
+                    <div class="col-xs-12 col-md-4 inblock-top">
+                      <div class="form-group text-md-right">
+                        <label for="nameNric">Name as per NRIC: <span class="text-danger">*</span></label>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-5 inblock-top">
+                      <div class="form-group">
+                        <span>${agentDetails.name!}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-md-4 inblock-top">
+                      <div class="form-group text-md-right">
+                        <label for="agencyNo">Agency No. : <span class="text-danger">*</span></label>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-5 inblock-top">
+                      <div class="form-group">
+                        <span>${agentDetails.agencyRegNo!}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12 col-md-4 inblock-top">
+                      <div class="form-group text-md-right">
+                        <label>Date:</label>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-md-5 inblock-top">
+                      <div class="form-group">
+                        <span>{{ currDate | date:'dd/MM/yyyy'}}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row margin-bottom-25">
+                    <div class="col-xs-12">
+                      <div class="checkbox custom-checkbox-mcis">
+                        <input id="codeOfEthicsAgreeEsign" name="codeOfEthicsAgreeEsign" type="checkbox"
+                          ng-model="formParams.codeOfEthicsAgreeEsign" ng-true-value="1" ng-false-value="0" required>
+                        <label for="codeOfEthicsAgreeEsign">
+                          <div class="custom-checkbox"
+                            ng-class="{'custom-checkbox-error' : formModalValidation && subForm.codeOfEthicsAgreeEsign.$error.required}">
+                          </div>
+                          <span class="small">
+                            By confirming the below, I agree that my electronic signature
+                            will be the representation of
+                            my signature for all purposes in the MCIS LIFE online
+                            application.
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="button" class="btn btn-primary" ng-disabled="!formParams.codeOfEthicsAgreeEsign"
+                      ng-click="confirmESign('signature-pad')">CONFIRM &
+                      SUBMIT</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+  </div>
+</body>
+<script src="main.js"></script>
+<script src="jquery.min.js"></script>
+<script src="bootstrap.min.js"></script>
+
+</html>
