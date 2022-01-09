@@ -19,6 +19,23 @@
 </head>
 
 <body>
+  <div class="agent-details-wrapper margin-top-25 margin-bottom-25">
+    <div class="agent-details margin-right-50">
+      <div><a style="color: #707070; font-weight: 400" href="javascript:void(0)" onclick="callLoader(); 
+        setTimeout(function(){ window.location.href = '${landLink!}'; }, 300);">Home</a></div>
+      <div class="margin-left-10 margin-right-10"></div>
+      <div><u>Applicant Details</u></div>
+      <div class="margin-left-10 margin-right-10"></div>
+      <div><a style="color: #707070; font-weight: 400" href="javascript:void(0)" onclick="callLoader(); 
+        setTimeout(function(){ window.location.href = '${decLink!}'; }, 300);">Product Overview & CFF Declaration</a></div>
+      <div class="margin-left-10 margin-right-10"></div>
+      <div><a style="color: #707070; font-weight: 400" href="javascript:void(0)" onclick="callLoader(); 
+        setTimeout(function(){ window.location.href = '${intLink!}'; }, 300);">Interview</a></div>
+      <div class="margin-left-10 margin-right-10"></div>
+      <div><a style="color: #707070; font-weight: 400" href="javascript:void(0)" onclick="callLoader(); 
+        setTimeout(function(){ window.location.href = '${ledLink!}'; }, 300);">Agency Leader Report</a></div>
+    </div>
+  </div>
   <div class="erecruit-form-container review-form" ng-controller="formController"
     ng-style="true && {'background-color': '#f4f4f4'}">
     [#if actionResult != "success"]
@@ -278,7 +295,7 @@
                       <button type="button" class="btn btn-primary" ng-click="nextSection('section3')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section1')">
+                      <button type="button" class="btn btn-default" ng-click="backSection('section1')">
                       Back
                       </button>
                     </div>
@@ -501,7 +518,7 @@
                       <button type="button" class="btn btn-primary" ng-click="nextSection('section4')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section2')">
+                      <button type="button" class="btn btn-default" ng-click="backSection('section2')">
                       Back
                       </button>
                     </div>
@@ -639,7 +656,7 @@
                       <button type="button" class="btn btn-primary" ng-click="nextSection('section5')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section3')">
+                      <button type="button" class="btn btn-default" ng-click="backSection('section3')">
                       Back
                       </button>
                     </div>
@@ -907,7 +924,7 @@
                       <button type="button" class="btn btn-primary" ng-click="nextSection('section6')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section4')">
+                      <button type="button" class="btn btn-default" ng-click="backSection('section4')">
                       Back
                       </button>
                     </div>
@@ -926,7 +943,7 @@
                       <button type="button" class="btn btn-primary" ng-click="nextSection('section7')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section5')">
+                      <button type="button" class="btn btn-default" ng-click="backSection('section5')">
                       Back
                       </button>
                     </div>
@@ -1267,7 +1284,7 @@
                       <button type="button" class="btn btn-primary" ng-click="nextSection('section8')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section6')">
+                      <button type="button" class="btn btn-default" ng-click="backSection('section6')">
                       Back
                       </button>
                     </div>
@@ -1455,7 +1472,7 @@
                         ng-click="nextStep('stage2'); nextSection('section9')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section7')">
+                      <button type="button" class="btn btn-default" ng-click="backSection('section7')">
                       Back
                       </button>
                     </div>
@@ -1477,7 +1494,7 @@
                       <div class="row">
                         <div class="col-xs-12 col-md-3">
                           <div class="form-group">
-                            <label>Name as per NRIC</label>
+                            <label>Name as per NRIC:</label>
                           </div>
                         </div>
                         <div class="col-xs-4 col-md-3">
@@ -1541,7 +1558,7 @@
                       </div>
                     </div>
                     <div class="col-xs-12 margin-top-5 margin-bottom-15">
-                      hereby declare and confirm that I have read and
+                      I hereby declare and confirm that I have read and
                       understood the contents of the Code of Ethics and
                       Conduct which are applicable to me, and further declare
                       that I shall comply and abide by the rules contained
@@ -1571,7 +1588,7 @@
                         ng-click="nextStep('stage3'); nextSection('section10')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary"
+                      <button type="button" class="btn btn-default"
                         ng-click="backStep('stage1'); backSection('section8')">
                       Back
                       </button>
@@ -1596,7 +1613,7 @@
                       <div class="row">
                         <div class="col-xs-12 col-md-3">
                           <div class="form-group">
-                            <label>Name</label>
+                            <label>Name as per NRIC:</label>
                           </div>
                         </div>
                         <div class="col-xs-12 col-md-9">
@@ -1738,7 +1755,7 @@
                         ng-click="nextStep('stage4'); nextSection('section11')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary"
+                      <button type="button" class="btn btn-default"
                         ng-click="backStep('stage2'); backSection('section9')">
                       Back
                       </button>
@@ -1765,7 +1782,7 @@
                       <button type="button" class="btn btn-primary" ng-click="nextSection('section12')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary"
+                      <button type="button" class="btn btn-default"
                         ng-click="backStep('stage3'); backSection('section10')">
                       Back
                       </button>
@@ -1914,7 +1931,7 @@
                         ng-click="nextStep('stage5'); nextSection('section13')">
                       Continue
                       </button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section11')">
+                      <button type="button" class="btn btn-default" ng-click="backSection('section11')">
                       Back
                       </button>
                     </div>
@@ -1984,7 +2001,7 @@
                         <div class="row border">
                           <div class="col-xs-12 col-md-2 pt-15">
                             <div class="form-group">
-                              <label>Name as per NRIC</label>
+                              <label>Name as per NRIC:</label>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-4 pt-15">
@@ -2628,7 +2645,7 @@
                       REJECT
                       </button>
                       [/#if]
-                      <button type="button" class="btn btn-primary"
+                      <button type="button" class="btn btn-default"
                         ng-click="backStep('stage4'); backSection('section12')">
                       BACK
                       </button>
