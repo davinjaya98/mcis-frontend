@@ -8,8 +8,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: flex-end;
-  padding-right: 5%;
+  align-items: flex-start;
+  padding-left: 5%;
 }
 
 .erecruit-navbar-wrapper .erecruit-navbar a,
@@ -717,7 +717,7 @@ ol li {
 
 .erecruit-navbar-wrapper .erecruit-navbar {
   flex-direction: row;
-  padding-right: 0;
+  padding-left: 0;
 }
 
 .erecruit-navbar-wrapper .erecruit-navbar a,
