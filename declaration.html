@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="MCIS">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eRecruit Form</title>
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="simplesearch.css">
+    <link rel="stylesheet" href="jquery-ui.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"
+      integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="signature_pad.min.js"></script>
+    <script src="angular.min.js"></script>
+  </head>
+  <body>
+    <div class="erecruit-form-container review-form" ng-controller="formController"
+      style="background-color: #f4f4f4">
+      <div class="margin-bottom-25 page-title">
+        <h3>Declaration of Life Insurance Product Overview & CFF Training</h3>
+      </div>
+      <div class="erecruit-form">
+        <form name="multiStepForm" id="multiStepForm" action="" method="POST" enctype="multipart/form-data"
+          class="form-mcis form-validation" ng-class="{'margin-top-45': stagePolicy && stagePdpa}"
+          ng-submit="submitForm($event)" role="form" novalidate>
+          <div class="animate-switch-container">
+            <!-- Nomination -->
+            <div class="section">
+              <div class="row">
+                <div class="col-xs-12">
+                  <!-- Declaration -->
+                  <div class="agreement-section">
+                    <h3 class="margin-bottom-45">Declaration of Completion for Life Insurance Basic Product Overview and
+                      Customer Face Find Form Training
+                    </h3>
+                    <hr>
+                    <div class="row">
+                      <div class="col-xs-12 col-md-6">
+                        <div class="row">
+                          <div class="col-xs-12 col-md-3">
+                            <label>Name as per NRIC</label>
+                          </div>
+                          <div class="col-xs-12 col-md-9">
+                            <div class="form-group">
+                              <input type="text" class="form-control-mcis uppercase" id="nameNric" name="nameNric"
+                                disabled value="Mohammad Fareez Bin Jamal">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="row">
+                          <div class="col-xs-12 col-md-3">
+                            <label>Agent Code:</label>
+                          </div>
+                          <div class="col-xs-12 col-md-9">
+                            <div class="form-group">
+                              <input type="text" class="form-control-mcis text-center" id="agentCode" name="agentCode" disabled
+                                value="A1230860">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="row">
+                          <div class="col-xs-12 col-md-3">
+                            <label>Unit No:</label>
+                          </div>
+                          <div class="col-xs-12 col-md-9">
+                            <div class="form-group">
+                              <input type="text" class="form-control-mcis text-center" id="unitNo" name="unitNo" disabled value="199">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-md-6">
+                        <div class="row">
+                          <div class="col-xs-12 col-md-3">
+                            <label>Branch:</label>
+                          </div>
+                          <div class="col-xs-12 col-md-9">
+                            <div class="form-group">
+                              <input type="text" class="form-control-mcis text-center" id="branch" name="branch" disabled
+                                value="MCIS Melaka">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-12 margin-top-5 margin-bottom-15">
+                        I hereby confirmed that I have provided the LIFE INSURANCE BASIC PRODUCT OVERVIEW AND CUSTOMER
+                        FACT FIND training to the above new agent on the date stated above
+                      </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12 d-flex-center">
+                          <button type="button" class="btn btn-primary" ng-click="triggerApplicantModal()">ACCEPT &
+                          SIGN</button>
+                          <button type="button" class="btn btn-default"
+                            ng-click="backStep('stage2'); backSection('section9')">Back</button>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+  <script src="review-main.js"></script>
+  <script src="jquery.min.js"></script>
+  <script src="bootstrap.min.js"></script>
+</html>

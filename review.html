@@ -21,27 +21,39 @@
 <body>
   <div class="erecruit-form-container review-form" ng-controller="formController"
     ng-style="true && {'background-color': '#f4f4f4'}">
+    [#if actionResult != "success"]
     <div class="margin-bottom-25 page-title" ng-if="section != 'section14'">
       <h3 ng-if="stage == 'stage1'">Agent Application</h3>
       <h3 ng-if="stage == 'stage2'">Liam Code of Ethics and Conduct</h3>
-      <h3 ng-if="stage == 'stage3'">Declaration of Life Insurance Product Overview & CFF Training</h3>
+      <h3 ng-if="stage == 'stage3'">
+        Declaration of Life Insurance Product Overview & CFF Training
+      </h3>
       <h3 ng-if="stage == 'stage4'">Liam Movement of Agents</h3>
       <h3 ng-if="stage == 'stage5'">Nomination Form</h3>
     </div>
+    [/#if]
     <div class="erecruit-form">
       [#if actionResult == "success"]
       <div class="success-screen">
-        <h3 class="text-center margin-bottom-45">You Have Successfully Submitted the Online Agent Application</h3>
-          <p class="display-block md-text-center margin-bottom-45">
-              MCIS personnel will contact you if your application is successful
-          </p>
-        <button style="display:block;" type="button" class="btn btn-primary" aria-label="Close">Close</button>
+        <h3 class="text-center margin-bottom-45">
+          You Have Successfully Submitted
+        </h3>
+        <button style="display: block" type="button" onclick="window.location='${landLink!}'" class="btn btn-primary"
+          aria-label="BACK TO HOME PAGE">
+        BACK TO HOME PAGE
+        </button>
       </div>
-      [#else]      
+      [#else]
       <ul class="erecruit-steps" ng-if="section != 'section14'">
-        <li ng-class="stage == 'stage1' ? 'active' : ''">Agent Application</li>
-        <li ng-class="stage == 'stage2' ? 'active' : ''">Liam COE and Conduct</li>
-        <li ng-class="stage == 'stage3' ? 'active' : ''">Product Overview & CTF</li>
+        <li ng-class="stage == 'stage1' ? 'active' : ''">
+          Agent Application
+        </li>
+        <li ng-class="stage == 'stage2' ? 'active' : ''">
+          Liam COE and Conduct
+        </li>
+        <li ng-class="stage == 'stage3' ? 'active' : ''">
+          Product Overview & CTF
+        </li>
         <li ng-class="stage == 'stage4' ? 'active' : ''">Liam Movement</li>
         <li ng-class="stage == 'stage5' ? 'active' : ''">Nomination</li>
       </ul>
@@ -50,51 +62,52 @@
         ng-submit="submitForm($event)" role="form" novalidate>
         <div class="animate-switch-container" ng-class="{forward: direction, backward:!direction}">
           <div class="form-item-hidden hidden">
-            <input type="hidden" name="mgnlModelExecutionUUID" value="${content.@id}" />
             <input type="hidden" name="field" value="" />
+            <input type="hidden" name="mgnlModelExecutionUUID" value="${content.@id}" />
+            <input type="hidden" name="applicantId" value="${applicantId}" />
             [#if model.formState?has_content]
             <input type="hidden" name="mgnlFormToken" value="${model.formState.token!}" />
-            [/#if]
-            [#if secfn.csrfEnabled]
+            [/#if] [#if secfn.csrfEnabled]
             <input type="hidden" name="${secfn.csrfTokenName!}" value="${secfn.csrfTokenValue!}" />
             [/#if]
-          </div><!-- end form-item-hidden -->
+          </div>
+          <!-- end form-item-hidden -->
           <!-- Agent Application -->
           <div class="section" ng-if="stage == 'stage5' ||  stage == 'stage1'" ng-hide="stage == 'stage5'">
             <div class="row">
               <div class="col-xs-12">
                 <div ng-if="section == 'section14' ||  section == 'section1'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">Personal Details</h3>
-
                   <!-- Salutation -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="salutation">Salutation <span class="text-danger">*</span></label>
+                        <label for="salutation">Salutation
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <input name="salutation" id="salutation" class="form-control-mcis" value="Mr" disabled>
+                        <input name="salutation" id="salutation" class="form-control-mcis"
+                          value="${eRecruitDetails.salutation}" disabled />
                       </div>
                     </div>
                   </div>
-
                   <!-- Name -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="nameNric">Name as per NRIC <span class="text-danger">*</span></label>
+                        <label for="nameNric">Name as per NRIC
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group">
                         <input type="text" class="form-control-mcis uppercase" id="nameNric" name="nameNric"
-                          value="Mohammad Fareeze Bin Jamal" disabled>
+                          value="${eRecruitDetails.nameNric}" disabled />
                       </div>
                     </div>
                   </div>
-
                   <!-- NRIC -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
@@ -104,12 +117,11 @@
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group">
-                        <input type="text" class="form-control-mcis" id="nric" name="nric" value="920505025547"
-                          disabled>
+                        <input type="text" class="form-control-mcis" id="nric" name="nric"
+                          value="${eRecruitDetails.nric}" disabled />
                       </div>
                     </div>
                   </div>
-
                   <!-- Old NRIC -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
@@ -119,38 +131,38 @@
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group">
-                        <input type="text" class="form-control-mcis uppercase" id="oldNric" name="oldNric" disabled>
+                        <input type="text" class="form-control-mcis uppercase" id="oldNric" name="oldNric" disabled
+                          value="${(eRecruitDetails.oldNric)!'-'}" />
                       </div>
                     </div>
                   </div>
-
                   <!-- DOB -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="dob">Date of Birth <span class="text-danger">*</span></label>
+                        <label for="dob">Date of Birth
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-1 inblock-top">
                       <div class="form-group">
-                        <input name="personalDobDate" id="personalDobDate" class="form-control-mcis" value="05"
-                          disabled>
+                        <input name="personalDobDate" id="personalDobDate" class="form-control-mcis"
+                          value="${eRecruitDetails.personalDobDate}" disabled />
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-2 inblock-top">
                       <div class="form-group">
-                        <input name="personalDobMonth" id="personalDobMonth" class="form-control-mcis" value="05"
-                          disabled>
+                        <input name="personalDobMonth" id="personalDobMonth" class="form-control-mcis"
+                          value="${eRecruitDetails.personalDobMonth}" disabled />
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-2 inblock-top">
                       <div class="form-group">
-                        <input name="personalDobYear" id="personalDobYear" class="form-control-mcis" value="1992"
-                          disabled>
+                        <input name="personalDobYear" id="personalDobYear" class="form-control-mcis"
+                          value="${eRecruitDetails.personalDobYear}" disabled />
                       </div>
                     </div>
                   </div>
-
                   <!-- Gender -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
@@ -160,58 +172,56 @@
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <input name="gender" id="gender" class="form-control-mcis" value="Male" disabled>
+                        <input name="gender" id="gender" class="form-control-mcis" disabled
+                          value="${eRecruitDetails.gender}" />
                       </div>
                     </div>
                   </div>
-
-                  <hr>
+                  <hr />
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
-                      <button type="button" class="btn btn-primary" ng-click="nextSection('section2')">Continue</button>
+                      <button type="button" class="btn btn-primary" ng-click="nextSection('section2')">
+                      Continue
+                      </button>
                       <!-- <button type="button" class="btn btn-primary" ng-click="goBackPdpaFn()">Back</button> -->
                     </div>
                   </div>
                 </div>
                 <div ng-if="section == 'section14' ||  section == 'section2'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">Personal Details</h3>
-
                   <!-- Correspondence Address -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="correspondenceAddress">Correspondence Address <span
-                            class="text-danger">*</span></label>
+                        <label for="correspondenceAddress">Correspondence Address
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group">
                         <input type="text" class="form-control-mcis uppercase" id="correspondenceAddress"
-                          name="correspondenceAddress" value="No 136 Kompleks Munsi Abdullah" disabled>
+                          name="correspondenceAddress" disabled value="${(eRecruitDetails.correspondenceAddress)!}" />
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-xs-12 col-md-3 inblock-top">
-                    </div>
+                    <div class="col-xs-12 col-md-3 inblock-top"></div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group">
                         <input type="text" class="form-control-mcis uppercase" id="correspondenceAddress1"
-                          name="correspondenceAddress1" value="Jalan Munsi Abdullah" disabled>
+                          name="correspondenceAddress1" disabled value="${(eRecruitDetails.correspondenceAddress1)!}" />
                       </div>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-xs-12 col-md-3 inblock-top">
-                    </div>
+                    <div class="col-xs-12 col-md-3 inblock-top"></div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group">
                         <input type="text" class="form-control-mcis uppercase" id="correspondenceAddress2"
-                          name="correspondenceAddress2" value="" disabled>
+                          name="correspondenceAddress2" disabled value="${(eRecruitDetails.correspondenceAddress2)!}" />
                       </div>
                     </div>
                   </div>
-
                   <!-- City & Postcode -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
@@ -222,22 +232,21 @@
                     <div class="col-xs-12 col-md-2 inblock-top">
                       <div class="form-group">
                         <input type="text" class="form-control-mcis uppercase" id="city" name="city"
-                          value="Bandar Melaka" disabled>
+                          value="${eRecruitDetails.city}" disabled />
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-1 inblock-top">
                       <div class="form-group">
-                        <label for="postcode" class="one-line">Postcode <span class="text-danger">*</span></label>
+                        <label for="postcode">Postcode <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-2 inblock-top">
                       <div class="form-group">
-                        <input type="text" class="form-control-mcis" id="postcode" name="postcode" value="75100"
-                          disabled>
+                        <input type="text" class="form-control-mcis" id="postcode" name="postcode"
+                          value="${eRecruitDetails.postcode}" disabled />
                       </div>
                     </div>
                   </div>
-
                   <!-- State & Country -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
@@ -247,7 +256,8 @@
                     </div>
                     <div class="col-xs-12 col-md-2 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <input name="state" id="state" class="form-control-mcis uppercase" value="Melaka" disabled>
+                        <input name="state" id="state" class="form-control-mcis uppercase"
+                          value="${eRecruitDetails.state}" disabled />
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-1 inblock-top">
@@ -257,60 +267,62 @@
                     </div>
                     <div class="col-xs-12 col-md-2 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <input name="country" id="country" class="form-control-mcis uppercase" value="Malaysia"
-                          disabled>
+                        <input name="country" id="country" class="form-control-mcis uppercase"
+                          value="${eRecruitDetails.country}" disabled />
                       </div>
                     </div>
                   </div>
-
-                  <hr>
+                  <hr />
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
-                      <button type="button" class="btn btn-primary" ng-click="nextSection('section3')">Continue</button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section1')">Back</button>
+                      <button type="button" class="btn btn-primary" ng-click="nextSection('section3')">
+                      Continue
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="backSection('section1')">
+                      Back
+                      </button>
                     </div>
                   </div>
-
                 </div>
                 <div ng-if="section == 'section14' ||  section == 'section3'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">Personal Details</h3>
-
                   <!-- Email -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="emailAddress">Email Address <span class="text-danger">*</span></label>
+                        <label for="emailAddress">Email Address
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group">
                         <input type="email" class="form-control-mcis" id="emailAddress" name="emailAddress"
-                          value="shafie@yahoo.com" disabled>
+                          value="${eRecruitDetails.emailAddress}" disabled />
                       </div>
                     </div>
                   </div>
-
                   <!-- Primary Handphone No. -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="primaryHandphoneNo">Primary Handphone No. <span class="text-danger">*</span></label>
+                        <label for="primaryHandphoneNo">Primary Handphone No.
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-1 inblock-top">
                       <div class="form-group">
                         <input type="text" class="form-control-mcis" id="primaryHandphoneNoPrefix"
-                          name="primaryHandphoneNoPrefix" value="013" disabled>
+                          name="primaryHandphoneNoPrefix" value="${eRecruitDetails.primaryHandphoneNoPrefix}"
+                          disabled />
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-4 inblock-top">
                       <div class="form-group">
                         <input type="text" class="form-control-mcis" id="primaryHandphoneNo" name="primaryHandphoneNo"
-                          value="72938474" disabled>
+                          value="${eRecruitDetails.primaryHandphoneNo}" disabled />
                       </div>
                     </div>
                   </div>
-
                   <!-- Secondary Handphone No. -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
@@ -321,72 +333,67 @@
                     <div class="col-xs-12 col-md-1 inblock-top">
                       <div class="form-group">
                         <input type="text" class="form-control-mcis" id="secondaryHandphoneNoPrefix"
-                          name="secondaryHandphoneNoPrefix" value="" disabled>
+                          name="secondaryHandphoneNoPrefix" disabled
+                          value="${(eRecruitDetails.secondaryHandphoneNoPrefix)!}" />
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-4 inblock-top">
                       <div class="form-group">
                         <input type="text" class="form-control-mcis" id="secondaryHandphoneNo"
-                          name="secondaryHandphoneNo" value="" disabled>
+                          name="secondaryHandphoneNo" disabled value="${(eRecruitDetails.secondaryHandphoneNo)!}" />
                       </div>
                     </div>
                   </div>
-
                   <!-- Citizen -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="citizen">Malaysian Citizen? <span class="text-danger">*</span></label>
+                        <label for="citizen">Malaysian Citizen?
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <input name="citizen" id="citizen" class="form-control-mcis selectpicker" value="Yes" disabled>
+                        <input name="citizen" id="citizen" class="form-control-mcis selectpicker"
+                          value="${eRecruitDetails.citizen}" disabled />
                       </div>
                     </div>
                   </div>
-
                   <!-- Marital Status -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="maritalStatus">Marital Status <span class="text-danger">*</span></label>
+                        <label for="maritalStatus">Marital Status
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <select name="maritalStatus" id="maritalStatus" class="form-control-mcis selectpicker" disabled>
-                          <option value="">Please Select</option>
-                          <option value="1">Single</option>
-                          <option value="2" selected>Married</option>
-                          <option value="3">Widow</option>
-                          <option value="4">Widower</option>
-                          <option value="5">Divorced</option>
-                        </select>
+                        <input name="maritalStatus" id="maritalStatus" class="form-control-mcis selectpicker"
+                          value="${eRecruitDetails.maritalStatus}" disabled />
                       </div>
                     </div>
                   </div>
-
                   <!-- Spouse Particulars if marital status is 2 -->
+                  [#if eRecruitDetails.maritalStatus == 'Married']
                   <div class="with-heading-wrapper">
                     <div class="row custom-row-border">
                       <div class="col-xs-12 col-md-12 inblock-top">
-                        <div class="section-label">
-                          Spouse Particulars
-                        </div>
+                        <div class="section-label">Spouse Particulars</div>
                       </div>
                     </div>
                     <!-- Spouse Salutation -->
                     <div class="row border-top-left-right">
                       <div class="col-xs-12 col-md-3 pt-15">
                         <div class="form-group">
-                          <label for="spouseSalutation">Salutation <span class="text-danger">*</span></label>
+                          <label for="spouseSalutation">Salutation
+                          <span class="text-danger">*</span></label>
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-5 pt-15">
                         <div class="form-group">
-                          <input name="spouseSalutation" id="spouseSalutation" class="form-control-mcis" value="MS"
-                            disabled>
+                          <input name="spouseSalutation" id="spouseSalutation" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.spouseSalutation)!}" />
                         </div>
                       </div>
                     </div>
@@ -394,13 +401,14 @@
                     <div class="row border-top-left-right">
                       <div class="col-xs-12 col-md-3 pt-15">
                         <div class="form-group">
-                          <label for="spouseNameNric">Name as per NRIC <span class="text-danger">*</span></label>
+                          <label for="spouseNameNric">Name as per NRIC
+                          <span class="text-danger">*</span></label>
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-5 pt-15">
                         <div class="form-group">
-                          <input type="text" class="form-control-mcis uppercase" id="spouseNameNric"
-                            name="spouseNameNric" value="Jeena Singham" disabled>
+                          <input type="text" class="form-control-mcis uppercase" id="spouseNameNric" disabled
+                            name="spouseNameNric" value="${(eRecruitDetails.spouseNameNric)!}" />
                         </div>
                       </div>
                     </div>
@@ -408,13 +416,14 @@
                     <div class="row border-top-left-right">
                       <div class="col-xs-12 col-md-3 pt-15">
                         <div class="form-group">
-                          <label for="spouseNricNo">NRIC No. <span class="text-danger">*</span></label>
+                          <label for="spouseNricNo">NRIC No.
+                          <span class="text-danger">*</span></label>
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-5 pt-15">
                         <div class="form-group">
-                          <input type="text" class="form-control-mcis" id="spouseNricNo" name="spouseNricNo"
-                            value="9303031010" disabled>
+                          <input type="text" class="form-control-mcis" id="spouseNricNo" name="spouseNricNo" disabled
+                            value="${(eRecruitDetails.spouseNricNo)!}" />
                         </div>
                       </div>
                     </div>
@@ -427,78 +436,79 @@
                       </div>
                       <div class="col-xs-12 col-md-5 pt-15">
                         <div class="form-group">
-                          <input type="text" class="form-control-mcis uppercase" id="spouseOldNricNo"
-                            name="spouseOldNricNo" value="" disabled>
+                          <input type="text" class="form-control-mcis uppercase" id="spouseOldNricNo" disabled
+                            name="spouseOldNricNo" value="${(eRecruitDetails.spouseOldNricNo)!}" />
                         </div>
                       </div>
                     </div>
-
                     <!-- Spouse DOB -->
                     <div class="row border-top-left-right">
                       <div class="col-xs-12 col-md-3 pt-15">
                         <div class="form-group">
-                          <label for="spouseDobDate">Date of Birth <span class="text-danger">*</span></label>
+                          <label for="spouseDobDate">Date of Birth
+                          <span class="text-danger">*</span></label>
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-1 pt-15">
                         <div class="form-group">
-                          <input name="spouseDobDate" id="spouseDobDate" class="form-control-mcis" value="03" disabled>
+                          <input name="spouseDobDate" id="spouseDobDate" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.spouseDobDate)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="spouseDobMonth" id="spouseDobMonth" class="form-control-mcis" value="03"
-                            disabled>
+                          <input name="spouseDobMonth" id="spouseDobMonth" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.spouseDobMonth)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="spouseDobYear" id="spouseDobYear" class="form-control-mcis" value="1993"
-                            disabled>
+                          <input name="spouseDobYear" id="spouseDobYear" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.spouseDobYear)!}" />
                         </div>
                       </div>
                     </div>
-
                     <!-- Spouse Is Immediately Family -->
                     <div class="row border-top-left-right border-bottom">
                       <div class="col-xs-12 col-md-3 pt-15">
                         <div class="form-group">
-                          <label for="isImmediatelyFamily">Is your spouse/immediate family member an agent or have ever been an agent with MCIS INSURANCE or any other insurance companies? <span
-                              class="text-danger">*</span></label>
+                          <label for="isImmediatelyFamily">Is your spouse or any immediate family member(s)
+                          an agent (currently or in the past) of MCIS Life /
+                          other insurance companies?
+                          <span class="text-danger">*</span></label>
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-5 pt-15">
                         <div class="form-group">
-                          <select name="isImmediatelyFamily" class="form-control-mcis selectpicker" disabled>
-                            <option value="">Please Select</option>
-                            <option value="1" selected>Yes</option>
-                            <option value="0">No</option>
-                          </select>
+                          <input name="isImmediatelyFamily" id="isImmediatelyFamily" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.isImmediatelyFamily)!}" />
                         </div>
                       </div>
                       <!-- Show this if yes -->
                       <div class="col-xs-12 col-md-4 pt-15">
                         <div class="form-group">
                           <input type="text" class="form-control-mcis" id="immediateFamily" name="immediateFamily"
-                            value="Khartik Singham" disabled>
+                            disabled value="${(eRecruitDetails.immediateFamily)!}" />
                         </div>
                       </div>
                     </div>
                   </div>
+                  [/#if]
                   <!-- Spouse Particulars -->
-
-                  <hr>
+                  <hr />
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
-                      <button type="button" class="btn btn-primary" ng-click="nextSection('section4')">Continue</button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section2')">Back</button>
+                      <button type="button" class="btn btn-primary" ng-click="nextSection('section4')">
+                      Continue
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="backSection('section2')">
+                      Back
+                      </button>
                     </div>
                   </div>
-
                 </div>
                 <div ng-if="section == 'section14' ||  section == 'section4'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">Personal Details</h3>
-
                   <!-- Religion -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
@@ -508,26 +518,22 @@
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <select name="religion" id="religion" class="form-control-mcis selectpicker" disabled>
-                          <option value="">Please Select</option>
-                          <option value="Islam" selected>Islam</option>
-                          <option value="Christianity">Christianity</option>
-                          <option value="Hinduism">Hinduism</option>
-                          <option value="Buddhism">Buddhism</option>
-                          <option value="Others">Others</option>
-                        </select>
+                        <input name="religion" id="religion" class="form-control-mcis" disabled
+                          value="${(eRecruitDetails.religion)!}" />
                       </div>
                     </div>
                     <!-- Show this if others -->
-                    <div class="col-xs-12 col-md-4 inblock-top">
+                    [#if eRecruitDetails.religionOther?has_content]
+                    <div class="col-xs-12 col-md-4 inblock-top"
+                      ng-show="${eRecruitDetails.religion}?has_content && 'Others' == ${eRecruitDetails.religion}">
                       <div class="form-group margin-bottom-20">
-                        <input name="religionOthers" id="religionOthers" class="form-control-mcis" value="Others"
-                          disabled />
+                        <input name="religionOthers" id="religionOthers" class="form-control-mcis" disabled
+                          value="${(eRecruitDetails.religionOther)!}" />
                       </div>
                     </div>
+                    [/#if]
                     <!-- Show this if others-->
                   </div>
-
                   <!-- Race -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
@@ -537,145 +543,124 @@
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <select name="race" id="race" class="form-control-mcis selectpicker" disabled>
-                          <option value="">Please Select</option>
-                          <option value="Malay" selected>Malay</option>
-                          <option value="Chinese">Chinese</option>
-                          <option value="Indian">Indian</option>
-                          <option valie="Others">Others</option>
-                        </select>
+                        <input name="race" id="race" class="form-control-mcis" disabled
+                          value="${eRecruitDetails.race}" />
                       </div>
                     </div>
                     <!-- Show if Others -->
+                    [#if eRecruitDetails.raceOther?has_content]
                     <div class="col-xs-12 col-md-4 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <input name="raceOthers" id="raceOthers" class="form-control-mcis" value="Others" disabled />
+                        <input name="raceOthers" id="raceOthers" class="form-control-mcis" disabled
+                          value="${(eRecruitDetails.raceOther)!}" />
                       </div>
                     </div>
+                    [/#if]
                     <!-- Show if Others -->
                   </div>
-
                   <!-- Relationship with the Recruiter -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="relationship">Relationship with the Recruiter <span
-                            class="text-danger">*</span></label>
+                        <label for="relationship">Relationship with the Recruiter
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <select name="relationship" id="relationship" class="form-control-mcis selectpicker" disabled>
-                          <option value="">Please Select</option>
-                          <option value="Spouse">Spouse</option>
-                          <option value="Children">Children</option>
-                          <option value="Parents">Parents</option>
-                          <option value="Siblings" selected>Siblings</option>
-                          <option value="Others">Others</option>
-                        </select>
+                        <input name="relationship" id="relationship" class="form-control-mcis" disabled
+                          value="${eRecruitDetails.relationship}" />
                       </div>
                     </div>
                     <!-- Show if others -->
+                    [#if eRecruitDetails.relationshipOthers?has_content]
                     <div class="col-xs-12 col-md-4 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <input name="relationshipOthers" id="relationshipOthers" class="form-control-mcis"
-                          value="Others" disabled />
+                        <input name="relationshipOthers" id="relationshipOthers" class="form-control-mcis" disabled
+                          value="${(eRecruitDetails.relationshipOthers)!}" />
                       </div>
                     </div>
+                    [/#if]
                     <!-- Show if others -->
                   </div>
-
                   <!-- Relationship with the Immediate Leader -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="relationshipLeader">Relationship with the Immediate Leader <span
-                            class="text-danger">*</span></label>
+                        <label for="relationshipLeader">Relationship with the Immediate Leader
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <select name="relationshipLeader" id="relationshipLeader" class="form-control-mcis selectpicker"
-                          disabled>
-                          <option value="">Please Select</option>
-                          <option value="Spouse">Spouse</option>
-                          <option value="Children">Children</option>
-                          <option value="Parents">Parents</option>
-                          <option value="Siblings">Siblings</option>
-                          <option value="Others" selected>Others</option>
-                        </select>
+                        <input name="relationshipLeader" id="relationshipLeader" class="form-control-mcis" disabled
+                          value="${eRecruitDetails.relationshipLeader}" />
                       </div>
                     </div>
                     <!-- Show if Others-->
+                    [#if eRecruitDetails.relationshipLeaderOthers?has_content]
                     <div class="col-xs-12 col-md-4 inblock-top">
                       <div class="form-group margin-bottom-20">
                         <input name="relationshipLeaderOthers" id="relationshipLeaderOthers" class="form-control-mcis"
-                          value="Friend" disabled />
+                          disabled value="${(eRecruitDetails.relationshipLeaderOthers)!}" />
                       </div>
                     </div>
+                    [/#if]
                     <!-- Show if Others-->
                   </div>
-
                   <!-- Highest Education Qualification -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="highestEducation">Highest Education Qualification <span
-                            class="text-danger">*</span></label>
+                        <label for="highestEducation">Highest Education Qualification
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <select name="highestEducation" id="highestEducation" class="form-control-mcis selectpicker"
-                          disabled>
-                          <option value="">Please Select</option>
-                          <option value="1" selected>University</option>
-                          <option value="2">College</option>
-                          <option value="3">STPM</option>
-                          <option value="4">SPM</option>
-                          <option value="5">PT3</option>
-                          <option value="6">Others</option>
-                        </select>
+                        <input name="highestEducation" id="highestEducation" class="form-control-mcis" disabled
+                          value="${eRecruitDetails.highestEducation}" />
                       </div>
                     </div>
                     <!-- Show if Others-->
+                    [#if eRecruitDetails.highestEducationOthers?has_content]
                     <div class="col-xs-12 col-md-4 inblock-top">
                       <div class="form-group margin-bottom-20">
                         <input name="highestEducationOthers" id="highestEducationOthers" class="form-control-mcis"
-                          value="Others" disabled />
+                          disabled value="${(eRecruitDetails.highestEducationOthers)!}" />
                       </div>
                     </div>
+                    [/#if]
                     <!-- Show if Others-->
                   </div>
-
-                  <hr>
+                  <hr />
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
-                      <button type="button" class="btn btn-primary" ng-click="nextSection('section5')">Continue</button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section3')">Back</button>
+                      <button type="button" class="btn btn-primary" ng-click="nextSection('section5')">
+                      Continue
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="backSection('section3')">
+                      Back
+                      </button>
                     </div>
                   </div>
-
                 </div>
                 <div ng-if="section == 'section14' ||  section == 'section5'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">Licensing Details</h3>
-
                   <!-- To Do -->
                   <!-- Insurance Licensing -->
                   <div class="with-heading-wrapper">
                     <div class="row custom-row-border">
                       <div class="col-xs-12 col-md-12 inblock-top">
-                        <div class="section-label">
-                          Insurance Licensing
-                        </div>
+                        <div class="section-label">Insurance Licensing</div>
                       </div>
                     </div>
-
                     <!-- PCE/PCIL -->
                     <div class="row border-top-left-right border-bottom">
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <label for="pcePcil">PCE/PCIL <span class="text-danger">*</span></label>
+                          <label for="pcePcil">PCE/PCIL
+                          <span class="text-danger">*</span></label>
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
@@ -685,31 +670,31 @@
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="pcePcilCertDate" id="pcePcilCertDate" class="form-control-mcis" value="09"
-                            disabled>
+                          <input name="pcePcilCertDate" id="pcePcilCertDate" class="form-control-mcis"
+                            value="${eRecruitDetails.pcePcilCertDate}" disabled />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="pcePcilCertMonth" id="pcePcilCertMonth" class="form-control-mcis" value="12"
-                            disabled>
+                          <input name="pcePcilCertMonth" id="pcePcilCertMonth" class="form-control-mcis"
+                            value="${eRecruitDetails.pcePcilCertMonth}" disabled />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="pcePcilCertYear" id="pcePcilCertYear" class="form-control-mcis" value="2021"
-                            disabled>
+                          <input name="pcePcilCertYear" id="pcePcilCertYear" class="form-control-mcis"
+                            value="${eRecruitDetails.pcePcilCertYear}" disabled />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group custom-mcis-file-input">
-                          <label for="pcePcilCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                          <a href="#">PCE1029212.pdf</a>
+                          [#if eRecruitDetails.pcePcilCertUUID?has_content]
+                          <a href="${eRecruitDetails.pcePcilCertUUID}" target="_blank">pcePcilCert.pdf</a>
+                          [/#if]
                         </div>
                       </div>
                     </div>
                   </div>
-
                   <!-- Other Qualification -->
                   <div class="with-heading-wrapper margin-top-25">
                     <div class="row custom-row-border">
@@ -719,13 +704,16 @@
                         </div>
                       </div>
                     </div>
-
                     <!-- CEILLI -->
                     <div class="row border-top-left-right">
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
                           <div class="checkbox custom-checkbox-mcis">
-                            <input id="ceilli" name="ceilli" type="checkbox" checked disabled>
+                            [#if eRecruitDetails.ceilliCertDate?has_content]
+                            <input id="ceilli" name="ceilli" type="checkbox" checked disabled />
+                            [#else]
+                            <input id="ceilli" name="ceilli" type="checkbox" disabled />
+                            [/#if]
                             <label for="ceilli">
                               <div class="custom-checkbox"></div>
                               <span>CEILLI</span>
@@ -740,36 +728,40 @@
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="ceilliCertDate" id="ceilliCertDate" class="form-control-mcis" value="01"
-                            disabled>
+                          <input name="ceilliCertDate" id="ceilliCertDate" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.ceilliCertDate)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="ceilliCertMonth" id="ceilliCertMonth" class="form-control-mcis" value="01"
-                            disabled>
+                          <input name="ceilliCertMonth" id="ceilliCertMonth" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.ceilliCertMonth)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="ceilliCertYear" id="ceilliCertYear" class="form-control-mcis" value="2021"
-                            disabled>
+                          <input name="ceilliCertYear" id="ceilliCertYear" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.ceilliCertYear)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group custom-mcis-file-input">
-                          <label for="ceilliCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                          <a href="#">Wohoo</a>
+                          [#if eRecruitDetails.ceilliCertUUID?has_content]
+                          <a href="${eRecruitDetails.ceilliCertUUID!}" target="_blank">ceilliCert.pdf</a>
+                          [/#if]
                         </div>
                       </div>
                     </div>
-
                     <!-- BAMC -->
                     <div class="row border-top-left-right">
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
                           <div class="checkbox custom-checkbox-mcis">
-                            <input id="bamc" name="bamc" type="checkbox" disabled>
+                            [#if eRecruitDetails.bamcCertDate?has_content]
+                            <input id="bamc" name="bamc" type="checkbox" checked disabled />
+                            [#else]
+                            <input id="bamc" name="bamc" type="checkbox" disabled />
+                            [/#if]
                             <label for="bamc">
                               <div class="custom-checkbox"></div>
                               <span>BAMC</span>
@@ -784,33 +776,40 @@
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="bamcCertDate" id="bamcCertDate" class="form-control-mcis" value="" disabled>
+                          <input name="bamcCertDate" id="bamcCertDate" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.bamcCertDate)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="bamcCertMonth" id="bamcCertMonth" class="form-control-mcis" value="" disabled>
+                          <input name="bamcCertMonth" id="bamcCertMonth" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.bamcCertMonth)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="bamcCertYear" id="bamcCertYear" class="form-control-mcis" value="" disabled>
+                          <input name="bamcCertYear" id="bamcCertYear" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.bamcCertYear)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group custom-mcis-file-input">
-                          <label for="bamcCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                          <a href="#"></a>
+                          [#if eRecruitDetails.bamcCertUUID?has_content]
+                          <a href="${eRecruitDetails.bamcCertUUID!}" target="_blank">bamcCert.pdf</a>
+                          [/#if]
                         </div>
                       </div>
                     </div>
-
                     <!-- RFP -->
                     <div class="row border-top-left-right">
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
                           <div class="checkbox custom-checkbox-mcis">
-                            <input id="rfp" name="rfp" type="checkbox" disabled>
+                            [#if eRecruitDetails.rfpCertDate?has_content]
+                            <input id="rfp" name="rfp" type="checkbox" checked disabled />
+                            [#else]
+                            <input id="rfp" name="rfp" type="checkbox" disabled />
+                            [/#if]
                             <label for="rfp">
                               <div class="custom-checkbox"></div>
                               <span>RFP</span>
@@ -825,38 +824,47 @@
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="rfpCertDate" id="rfpCertDate" class="form-control-mcis" value="" disabled>
+                          <input name="rfpCertDate" id="rfpCertDate" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.rfpCertDate)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="rfpCertMonth" id="rfpCertMonth" class="form-control-mcis" value="" disabled>
+                          <input name="rfpCertMonth" id="rfpCertMonth" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.rfpCertMonth)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="rfpCertYear" id="rfpCertYear" class="form-control-mcis" value="" disabled>
+                          <input name="rfpCertYear" id="rfpCertYear" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.rfpCertYear)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group custom-mcis-file-input">
-                          <label for="rfpCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                          <a href="#"></a>
+                          [#if eRecruitDetails.rfpCertUUID?has_content]
+                          <a href="${eRecruitDetails.rfpCertUUID!}" target="_blank">rfpCert.pdf</a>
+                          [/#if]
                         </div>
                       </div>
                     </div>
-
                     <!-- Others -->
                     <div class="row border-top-left-right border-bottom">
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
                           <div class="checkbox custom-checkbox-mcis d-flex margin-top-0">
-                            <input id="others" name="others" type="checkbox" disabled>
+                            [#if
+                            eRecruitDetails.othersQualifications?has_content]
+                            <input id="others" name="others" type="checkbox" checked disabled />
+                            [#else]
+                            <input id="others" name="others" type="checkbox" disabled />
+                            [/#if]
                             <label for="others">
                               <div class="custom-checkbox"></div>
                             </label>
                             <input type="text" class="form-control-mcis margin-left-15 d-block-important"
-                              id="othersQualifications" name="othersQualifications" value="" disabled>
+                              id="othersQualifications" name="othersQualifications" disabled
+                              value="${(eRecruitDetails.othersQualifications)!}" />
                           </div>
                         </div>
                       </div>
@@ -867,59 +875,74 @@
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="othersCertDate" id="othersCertDate" class="form-control-mcis" value="" disabled>
+                          <input name="othersCertDate" id="othersCertDate" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.othersCertDate)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="othersCertMonth" id="othersCertMonth" class="form-control-mcis " value=""
-                            disabled>
+                          <input name="othersCertMonth" id="othersCertMonth" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.othersCertMonth)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group">
-                          <input name="othersCertYear" id="othersCertYear" class="form-control-mcis" value="" disabled>
+                          <input name="othersCertYear" id="othersCertYear" class="form-control-mcis" disabled
+                            value="${(eRecruitDetails.othersCertYear)!}" />
                         </div>
                       </div>
                       <div class="col-xs-12 col-md-2 pt-15">
                         <div class="form-group custom-mcis-file-input">
-                          <label for="othersCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                          <a href="#"></a>
+                          [#if eRecruitDetails.othersCertUUID?has_content]
+                          <a href="${eRecruitDetails.othersCertUUID!}"
+                            target="_blank">${(eRecruitDetails.othersQualifications)!}</a>
+                          [/#if]
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <hr>
+                  <hr />
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
-                      <button type="button" class="btn btn-primary" ng-click="nextSection('section6')">Continue</button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section4')">Back</button>
+                      <button type="button" class="btn btn-primary" ng-click="nextSection('section6')">
+                      Continue
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="backSection('section4')">
+                      Back
+                      </button>
                     </div>
                   </div>
                 </div>
-
                 <!-- Employment History -->
                 <div ng-if="section == 'section14' ||  section == 'section6'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">Employment History</h3>
-                  <hr>
-                  <h3 class="text-center employment-history-wrapper">Have you been employed in the last 5 years?</h3>
-
-                  <hr>
+                  <hr />
+                  <h3 class="text-center employment-history-wrapper">
+                    Have you been employed in the last 5 years?
+                  </h3>
+                  <hr />
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
-                      <button type="button" class="btn btn-primary" ng-click="nextSection('section7')">Continue</button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section5')">Back</button>
+                      <button type="button" class="btn btn-primary" ng-click="nextSection('section7')">
+                      Continue
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="backSection('section5')">
+                      Back
+                      </button>
                     </div>
                   </div>
                 </div>
                 <div ng-if="section == 'section14' ||  section == 'section7'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">Employment History</h3>
-
                   <div class="tabs margin-top-25 margin-bottom-15">
                     <!-- Employment History 1 -->
                     <div class="tab">
-                      <input type="checkbox" id="eh1" class="custom-check" checked>
+                      [#if eRecruitDetails.eh1CompanyName?has_content]
+                      <input type="checkbox" id="eh1" class="custom-check" checked />
+                      [#else]
+                      <input type="checkbox" id="eh1" class="custom-check" />
+                      [/#if]
+                      <input type="checkbox" id="eh1" class="custom-check" checked />
                       <div class="plus"></div>
                       <label class="tab-label" for="eh1">Employment History 1</label>
                       <div class="tab-content custom-tab-content">
@@ -927,13 +950,14 @@
                         <div class="row border">
                           <div class="col-xs-12 col-md-3 pt-15">
                             <div class="form-group">
-                              <label for="eh1CompanyName">Company Name <span class="text-danger">*</span></label>
+                              <label for="eh1CompanyName">Company Name
+                              <span class="text-danger">*</span></label>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
-                              <input type="text" class="form-control-mcis" id="eh1CompanyName" name="eh1CompanyName"
-                                value="Fareez Agency" disabled>
+                              <input type="text" class="form-control-mcis" id="eh1CompanyName" disabled
+                                name="eh1CompanyName" value="${(eRecruitDetails.eh1CompanyName)!}" />
                             </div>
                           </div>
                         </div>
@@ -941,13 +965,14 @@
                         <div class="row border">
                           <div class="col-xs-12 col-md-3 pt-15">
                             <div class="form-group">
-                              <label for="eh1PositionHeld">Position Held <span class="text-danger">*</span></label>
+                              <label for="eh1PositionHeld">Position Held
+                              <span class="text-danger">*</span></label>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
                               <input type="text" class="form-control-mcis" id="eh1PositionHeld" name="eh1PositionHeld"
-                                value="Insurance Agent" disabled>
+                                disabled value="${(eRecruitDetails.eh1PositionHeld)!}" />
                             </div>
                           </div>
                         </div>
@@ -955,8 +980,8 @@
                         <div class="row border">
                           <div class="col-xs-12 col-md-3 pt-15">
                             <div class="form-group">
-                              <label for="eh1EmploymentPeriodFrom">Employment Period From <span
-                                  class="text-danger">*</span></label>
+                              <label for="eh1EmploymentPeriodFrom">Employment Period From
+                              <span class="text-danger">*</span></label>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-5 pt-15">
@@ -964,13 +989,15 @@
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                   <input name="eh1EmploymentPeriodFromMonth" id="eh1EmploymentPeriodFromMonth"
-                                    class="form-control-mcis" value="07" disabled>
+                                    class="form-control-mcis" disabled
+                                    value="${(eRecruitDetails.eh1EmploymentPeriodFromMonth)!}" />
                                 </div>
                               </div>
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                   <input name="eh1EmploymentPeriodFromYear" id="eh1EmploymentPeriodFromYear"
-                                    class="form-control-mcis" value="2017" disabled>
+                                    class="form-control-mcis" disabled
+                                    value="${(eRecruitDetails.eh1EmploymentPeriodFromYear)!}" />
                                 </div>
                               </div>
                             </div>
@@ -980,8 +1007,8 @@
                         <div class="row border">
                           <div class="col-xs-12 col-md-3 pt-15">
                             <div class="form-group">
-                              <label for="eh1EmploymentPeriodTo">Employment Period To <span
-                                  class="text-danger">*</span></label>
+                              <label for="eh1EmploymentPeriodTo">Employment Period To
+                              <span class="text-danger">*</span></label>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-5 pt-15">
@@ -989,13 +1016,15 @@
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                   <input name="eh1EmploymentPeriodToMonth" id="eh1EmploymentPeriodToMonth"
-                                    class="form-control-mcis" value="11" disabled>
+                                    class="form-control-mcis" disabled
+                                    value="${(eRecruitDetails.eh1EmploymentPeriodToMonth)!}" />
                                 </div>
                               </div>
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
                                   <input name="eh1EmploymentPeriodToYear" id="eh1EmploymentPeriodToYear"
-                                    class="form-control-mcis" value="2021" disabled>
+                                    class="form-control-mcis" disabled
+                                    value="${(eRecruitDetails.eh1EmploymentPeriodToYear)!}" />
                                 </div>
                               </div>
                             </div>
@@ -1005,13 +1034,15 @@
                         <div class="row border">
                           <div class="col-xs-12 col-md-3 pt-15">
                             <div class="form-group">
-                              <label for="eh1Reasons">Reasons For Leaving <span class="text-danger">*</span></label>
+                              <label for="eh1Reasons">Reasons For Leaving
+                              <span class="text-danger">*</span></label>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
                               <textarea type="text" class="form-control-mcis" rows="10" id="eh1Reasons"
-                                name="eh1Reasons" disabled>New opportunity</textarea>
+                                name="eh1Reasons" disabled>
+                              ${(eRecruitDetails.eh1Reasons)!}</textarea>
                             </div>
                           </div>
                         </div>
@@ -1019,7 +1050,11 @@
                     </div>
                     <!-- Employment History 2 -->
                     <div class="tab">
-                      <input type="checkbox" id="eh2" class="custom-check">
+                      [#if eRecruitDetails.eh2CompanyName?has_content]
+                      <input type="checkbox" id="eh2" class="custom-check" checked />
+                      [#else]
+                      <input type="checkbox" id="eh2" class="custom-check" />
+                      [/#if]
                       <div class="plus"></div>
                       <label class="tab-label" for="eh2">Employment History 2</label>
                       <div class="tab-content custom-tab-content">
@@ -1033,7 +1068,7 @@
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
                               <input type="text" class="form-control-mcis" id="eh2CompanyName" name="eh2CompanyName"
-                                value="" disabled>
+                                disabled value="${(eRecruitDetails.eh2CompanyName)!}" />
                             </div>
                           </div>
                         </div>
@@ -1047,7 +1082,7 @@
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
                               <input type="text" class="form-control-mcis" id="eh2PositionHeld" name="eh2PositionHeld"
-                                value="" disabled>
+                                disabled value="${(eRecruitDetails.eh2PositionHeld)!}" />
                             </div>
                           </div>
                         </div>
@@ -1062,14 +1097,16 @@
                             <div class="row">
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                  <input name="eh2EmploymentPeriodFromMonth" id="eh2EmploymentPeriodFromMonth"
-                                    class="form-control-mcis" value="" disabled>
+                                  <input name="eh2EmploymentPeriodFromMonth" id="eh2EmploymentPeriodFromMonth" disabled
+                                    class="form-control-mcis"
+                                    value="${(eRecruitDetails.eh2EmploymentPeriodFromMonth)!}" />
                                 </div>
                               </div>
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                  <input name="eh2EmploymentPeriodFromYear" id="eh2EmploymentPeriodFromYear"
-                                    class="form-control-mcis" value="" disabled>
+                                  <input name="eh2EmploymentPeriodFromYear" id="eh2EmploymentPeriodFromYear" disabled
+                                    class="form-control-mcis"
+                                    value="${(eRecruitDetails.eh2EmploymentPeriodFromYear)!}" />
                                 </div>
                               </div>
                             </div>
@@ -1086,14 +1123,15 @@
                             <div class="row">
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                  <input name="eh2EmploymentPeriodToMonth" id="eh2EmploymentPeriodToMonth"
-                                    class="form-control-mcis" value="" disabled>
+                                  <input name="eh2EmploymentPeriodToMonth" id="eh2EmploymentPeriodToMonth" disabled
+                                    class="form-control-mcis"
+                                    value="${(eRecruitDetails.eh2EmploymentPeriodToMonth)!}" />
                                 </div>
                               </div>
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                  <input name="eh2EmploymentPeriodToYear" id="eh2EmploymentPeriodToYear"
-                                    class="form-control-mcis" value="" disabled>
+                                  <input name="eh2EmploymentPeriodToYear" id="eh2EmploymentPeriodToYear" disabled
+                                    class="form-control-mcis" value="${(eRecruitDetails.eh2EmploymentPeriodToYear)!}" />
                                 </div>
                               </div>
                             </div>
@@ -1109,7 +1147,8 @@
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
                               <textarea type="text" class="form-control-mcis" rows="10" id="eh2Reasons"
-                                name="eh2Reasons" disabled></textarea>
+                                name="eh2Reasons" disabled>
+                              ${(eRecruitDetails.eh2Reasons)!}</textarea>
                             </div>
                           </div>
                         </div>
@@ -1117,7 +1156,11 @@
                     </div>
                     <!-- Employment History 3 -->
                     <div class="tab">
-                      <input type="checkbox" id="eh3" class="custom-check">
+                      [#if eRecruitDetails.eh3CompanyName?has_content]
+                      <input type="checkbox" id="eh3" class="custom-check" checked />
+                      [#else]
+                      <input type="checkbox" id="eh3" class="custom-check" />
+                      [/#if]
                       <div class="plus"></div>
                       <label class="tab-label" for="eh3">Employment History 3</label>
                       <div class="tab-content custom-tab-content">
@@ -1131,7 +1174,7 @@
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
                               <input type="text" class="form-control-mcis" id="eh3CompanyName" name="eh3CompanyName"
-                                value="" disabled>
+                                disabled value="${(eRecruitDetails.eh3CompanyName)!}" />
                             </div>
                           </div>
                         </div>
@@ -1145,7 +1188,7 @@
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
                               <input type="text" class="form-control-mcis" id="eh3PositionHeld" name="eh3PositionHeld"
-                                value="" disabled>
+                                disabled value="${(eRecruitDetails.eh3PositionHeld)!}" />
                             </div>
                           </div>
                         </div>
@@ -1160,14 +1203,16 @@
                             <div class="row">
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                  <input name="eh3EmploymentPeriodFromMonth" id="eh3EmploymentPeriodFromMonth"
-                                    class="form-control-mcis" value="" disabled>
+                                  <input name="eh3EmploymentPeriodFromMonth" id="eh3EmploymentPeriodFromMonth" disabled
+                                    class="form-control-mcis"
+                                    value="${(eRecruitDetails.eh3EmploymentPeriodFromMonth)!}" />
                                 </div>
                               </div>
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                  <input name="eh3EmploymentPeriodFromYear" id="eh3EmploymentPeriodFromYear"
-                                    class="form-control-mcis" value="" disabled>
+                                  <input name="eh3EmploymentPeriodFromYear" id="eh3EmploymentPeriodFromYear" disabled
+                                    class="form-control-mcis"
+                                    value="${(eRecruitDetails.eh3EmploymentPeriodFromYear)!}" />
                                 </div>
                               </div>
                             </div>
@@ -1184,14 +1229,15 @@
                             <div class="row">
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                  <input name="eh3EmploymentPeriodToMonth" id="eh3EmploymentPeriodToMonth"
-                                    class="form-control-mcis" value="" disabled>
+                                  <input name="eh3EmploymentPeriodToMonth" id="eh3EmploymentPeriodToMonth" disabled
+                                    class="form-control-mcis"
+                                    value="${(eRecruitDetails.eh3EmploymentPeriodToMonth)!}" />
                                 </div>
                               </div>
                               <div class="col-xs-12 col-md-6">
                                 <div class="form-group">
-                                  <input name="eh3EmploymentPeriodToYear" id="eh3EmploymentPeriodToYear"
-                                    class="form-control-mcis" value="" disabled>
+                                  <input name="eh3EmploymentPeriodToYear" id="eh3EmploymentPeriodToYear" disabled
+                                    class="form-control-mcis" value="${(eRecruitDetails.eh3EmploymentPeriodToYear)!}" />
                                 </div>
                               </div>
                             </div>
@@ -1207,142 +1253,139 @@
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
                               <textarea type="text" class="form-control-mcis" rows="10" id="eh3Reasons"
-                                name="eh3Reasons" disabled></textarea>
+                                name="eh3Reasons" disabled>
+                              ${(eRecruitDetails.eh3Reasons)!}</textarea>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <hr>
+                  <hr />
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
-                      <button type="button" class="btn btn-primary" ng-click="nextSection('section8')">Continue</button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section6')">Back</button>
+                      <button type="button" class="btn btn-primary" ng-click="nextSection('section8')">
+                      Continue
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="backSection('section6')">
+                      Back
+                      </button>
                     </div>
                   </div>
-
                 </div>
-
                 <!-- Health & Other Information -->
                 <div ng-if="section == 'section14' ||  section == 'section8'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">Health & Other Information</h3>
-
                   <!-- Good Health -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="goodHealth">Are you now in good health? <span class="text-danger">*</span></label>
+                        <label for="goodHealth">Are you now in good health?
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <select name="goodHealth" id="goodHealth" class="form-control-mcis selectpicker" disabled>
-                          <option value="">Please Select</option>
-                          <option value="1" selected>Yes</option>
-                          <option value="0">No</option>
-                        </select>
+                        <input name="goodHealth" id="goodHealth" disabled class="form-control-mcis"
+                          value="${(eRecruitDetails.goodHealth)!}" />
                       </div>
                     </div>
                   </div>
                   <!-- Show if No -->
+                  [#if eRecruitDetails.goodHealth == 'No']
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top"></div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
                         <textarea name="goodHealthSpecify" rows="10" id="goodHealthSpecify" class="form-control-mcis"
-                          disabled>Value</textarea>
+                          disabled>
+                        ${(eRecruitDetails.goodHealthSpecify)!}</textarea>
                       </div>
                     </div>
                   </div>
+                  [/#if]
                   <!-- Good Health -->
-
                   <!-- Physical Deformity -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="physicalDeformity">Have you any physical deformity or health impairments? <span
-                            class="text-danger">*</span></label>
+                        <label for="physicalDeformity">Have you any physical deformity or health
+                        impairments?
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <select name="physicalDeformity" id="physicalDeformity" class="form-control-mcis selectpicker"
-                          disabled>
-                          <option value="">Please Select</option>
-                          <option value="1" selected>Yes</option>
-                          <option value="0">No</option>
-                        </select>
+                        <input name="physicalDeformity" id="physicalDeformity" disabled class="form-control-mcis"
+                          value="${(eRecruitDetails.physicalDeformity)!}" />
                       </div>
                     </div>
                   </div>
                   <!-- Show if Yes -->
+                  [#if eRecruitDetails.physicalDeformity == 'Yes']
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top"></div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
                         <textarea name="physicalDeformitySpecify" rows="10" id="physicalDeformitySpecify"
-                          class="form-control-mcis" disabled>Small Hands</textarea>
+                          class="form-control-mcis" disabled>
+                        ${(eRecruitDetails.physicalDeformitySpecify)!}</textarea>
                       </div>
                     </div>
                   </div>
+                  [/#if]
                   <!-- Physical Deformity -->
-
                   <!-- Undischarged Bankrupt -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="undischargedBankrupt">Are you an un-discharged bankrupt and/or have criminal record
-                          what so ever and/or have undergone any disclipinary actions in any previous employment? <span
-                            class="text-danger">*</span></label>
+                        <label for="undischargedBankrupt">Are you an un-discharged bankrupt and/or have
+                        criminal record what so ever and/or have undergone
+                        any disclipinary actions in any previous employment?
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="row">
                         <div class="col-xs-12">
                           <div class="form-group margin-bottom-20">
-                            <select name="undischargedBankrupt" id="undischargedBankrupt"
-                              class="form-control-mcis selectpicker" disabled>
-                              <option value="">Please Select</option>
-                              <option value="1" selected>Yes</option>
-                              <option value="0">No</option>
-                            </select>
+                            <input name="undischargedBankrupt" id="undischargedBankrupt" disabled
+                              class="form-control-mcis" value="${(eRecruitDetails.undischargedBankrupt)!}" />
                           </div>
                         </div>
                         <!-- Show if Yes -->
+                        [#if eRecruitDetails.undischargedBankrupt == 'Yes']
                         <div class="col-xs-12">
                           <div class="form-group margin-bottom-20">
                             <textarea name="undischargedBankruptSpecify" rows="10" id="undischargedBankruptSpecify"
-                              class="form-control-mcis" disabled>Bankrupt 2020</textarea>
+                              class="form-control-mcis" disabled>
+                            ${(eRecruitDetails.undischargedBankruptSpecify)!}</textarea>
                           </div>
                         </div>
+                        [/#if]
                       </div>
                     </div>
                   </div>
                   <!-- Undischarged Bankrupt -->
-
                   <!-- Held Agency Contract -->
                   <div class="row">
                     <div class="col-xs-12 col-md-3 inblock-top">
                       <div class="form-group">
-                        <label for="heldAgencyContract">Have you ever held an Agency contract with MCIS INSURANCE or any
-                          other Insurance Company? <span class="text-danger">*</span></label>
+                        <label for="heldAgencyContract">Have you ever held an Agency contract with MCIS
+                        INSURANCE or any other Insurance Company?
+                        <span class="text-danger">*</span></label>
                       </div>
                     </div>
                     <div class="col-xs-12 col-md-5 inblock-top">
                       <div class="form-group margin-bottom-20">
-                        <select name="heldAgencyContract" id="heldAgencyContract" class="form-control-mcis selectpicker"
-                          disabled>
-                          <option value="">Please Select</option>
-                          <option value="1">Yes</option>
-                          <option value="0" selected>No</option>
-                        </select>
+                        <input name="heldAgencyContract" id="heldAgencyContract" disabled class="form-control-mcis"
+                          value="${(eRecruitDetails.heldAgencyContract)!}" />
                       </div>
                     </div>
                   </div>
                   <!-- Show if Yes -->
-                  <div class="row">
+                  [#if eRecruitDetails.heldAgencyContract == 'Yes']
+                  <div class="row" ng-show="${eRecruitDetails.heldAgencyContract} == 'Yes'">
                     <div class="col-xs-12 col-md-3 inblock-top"></div>
                     <div class="col-xs-12 col-md-9 inblock-top">
                       <!-- Insurance Company Details -->
@@ -1358,14 +1401,14 @@
                         <div class="row border-top-left-right">
                           <div class="col-xs-12 col-md-3 pt-15">
                             <div class="form-group">
-                              <label for="insuranceCompanyName">Name of the Insurance Company <span
-                                  class="text-danger">*</span></label>
+                              <label for="insuranceCompanyName">Name of the Insurance Company
+                              <span class="text-danger">*</span></label>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
                               <input name="insuranceCompanyName" id="insuranceCompanyName" class="form-control-mcis"
-                                value="AAA Insurance" disabled />
+                                disabled value="${(eRecruitDetails.insuranceCompanyName)!}" />
                             </div>
                           </div>
                         </div>
@@ -1373,13 +1416,14 @@
                         <div class="row border-top-left-right">
                           <div class="col-xs-12 col-md-3 pt-15">
                             <div class="form-group">
-                              <label for="positionHeld">Position Held <span class="text-danger">*</span></label>
+                              <label for="positionHeld">Position Held
+                              <span class="text-danger">*</span></label>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
-                              <input name="positionHeld" id="positionHeld" class="form-control-mcis"
-                                value="Insurance Agent" disabled />
+                              <input name="positionHeld" id="positionHeld" class="form-control-mcis" disabled
+                                value="${(eRecruitDetails.positionHeld)!}" />
                             </div>
                           </div>
                         </div>
@@ -1387,35 +1431,39 @@
                         <div class="row border-top-left-right border-bottom">
                           <div class="col-xs-12 col-md-3 pt-15">
                             <div class="form-group">
-                              <label for="agencyContractReasons">Reasons for Leaving <span
-                                  class="text-danger">*</span></label>
+                              <label for="agencyContractReasons">Reasons for Leaving
+                              <span class="text-danger">*</span></label>
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-5 pt-15">
                             <div class="form-group">
                               <textarea name="agencyContractReasons" rows="10" id="agencyContractReasons"
-                                class="form-control-mcis" disabled>Commission Scheme</textarea>
+                                class="form-control-mcis" disabled>
+                              ${(eRecruitDetails.agencyContractReasons)!}</textarea>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
+                  [/#if]
                   <!-- Held Agency Contract -->
-
-                  <hr>
+                  <hr />
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
                       <button type="button" class="btn btn-primary"
-                        ng-click="nextStep('stage2'); nextSection('section9')">Continue</button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section7')">Back</button>
+                        ng-click="nextStep('stage2'); nextSection('section9')">
+                      Continue
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="backSection('section7')">
+                      Back
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
           <!-- Liam COE and Conduct -->
           <div class="section" ng-if="stage == 'stage5' ||  stage == 'stage2'" ng-hide="stage == 'stage5'">
             <div class="row">
@@ -1423,8 +1471,7 @@
                 <div ng-if="section == 'section14' ||  section == 'section9'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">CODE OF ETHICS AND CONDUCT</h3>
                   <p>Life Insurance Association of Malaysia</p>
-                  <hr>
-
+                  <hr />
                   <div class="row">
                     <div class="col-xs-12 col-md-6">
                       <div class="row">
@@ -1435,14 +1482,14 @@
                         </div>
                         <div class="col-xs-4 col-md-3">
                           <div class="form-group">
-                            <input type="text" class="form-control-mcis text-center" id="salutation" name="salutation" disabled
-                              value="Mr">
+                            <input type="text" class="form-control-mcis text-center" id="salutation" name="salutation"
+                              disabled value="${eRecruitDetails.salutation}" />
                           </div>
                         </div>
                         <div class="col-xs-8 col-md-6">
                           <div class="form-group">
                             <input type="text" class="form-control-mcis text-center" id="nameNric" name="nameNric"
-                              disabled value="Mohammad Fareeze Bin Jamal">
+                              disabled value="${eRecruitDetails.nameNric}" />
                           </div>
                         </div>
                       </div>
@@ -1457,7 +1504,7 @@
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
                             <input type="text" class="form-control-mcis text-center" id="nric" name="nric" disabled
-                              value="920505025547">
+                              value="${eRecruitDetails.nric}" />
                           </div>
                         </div>
                       </div>
@@ -1471,12 +1518,9 @@
                         </div>
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
-                            <select name="codeEthicsRelationship" id="codeEthicsRelationship"
-                              class="form-control-mcis selectpicker" disabled>
-                              <option value="">Please Select</option>
-                              <option value="1" selected>Employee</option>
-                              <option value="3">Intermediary</option>
-                            </select>
+                            <input type="text" class="form-control-mcis text-center" id="codeEthicsRelationship"
+                              name="codeEthicsRelationship" disabled
+                              value="${eRecruitDetails.codeEthicsRelationship}" />
                           </div>
                         </div>
                       </div>
@@ -1490,31 +1534,32 @@
                         </div>
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control-mcis text-center" id="codeEthicsCompany" name="codeEthicsCompany"
-                              disabled value="MCIS Insurance Berhad">
+                            <input type="text" class="form-control-mcis text-center" id="codeEthicsCompany"
+                              name="codeEthicsCompany" disabled value="MCIS Insurance Berhad" />
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-xs-12 margin-top-5 margin-bottom-15">
-                      I hereby declare and confirm that I have read and understood the contents of the Code of Ethics
-                      and Conduct which are applicable
-                      to me, and further declare that I shall comply and abide by the rules contained therein.
+                      hereby declare and confirm that I have read and
+                      understood the contents of the Code of Ethics and
+                      Conduct which are applicable to me, and further declare
+                      that I shall comply and abide by the rules contained
+                      therein.
                     </div>
                   </div>
-
-                  <hr>
+                  <hr />
                   <div class="row margin-top-25 margin-bottom-25">
                     <div class="col-xs-12 text-center">
                       <div class="checkbox custom-checkbox-mcis">
-                        <input id="codeOfEthicsAgree" name="codeOfEthicsAgree" type="checkbox" checked disabled>
+                        <input id="codeOfEthicsAgree" name="codeOfEthicsAgree" type="checkbox" checked disabled />
                         <label for="codeOfEthicsAgree">
                           <div class="custom-checkbox"
                             ng-class="{'custom-checkbox-error' : formValidation && multiStepForm.codeOfEthicsAgree.$error.required}">
                           </div>
                           <span>
-                            I hereby agree that my e-signature is required as a consent to the Code of Ethics and
-                            Conduct
+                          I hereby agree that my e-signature is required as
+                          a consent to the Code of Ethics and Conduct
                           </span>
                         </label>
                       </div>
@@ -1523,24 +1568,29 @@
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
                       <button type="button" class="btn btn-primary"
-                        ng-click="nextStep('stage3'); nextSection('section10')">Continue</button>
+                        ng-click="nextStep('stage3'); nextSection('section10')">
+                      Continue
+                      </button>
                       <button type="button" class="btn btn-primary"
-                        ng-click="backStep('stage1'); backSection('section8')">Back</button>
+                        ng-click="backStep('stage1'); backSection('section8')">
+                      Back
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
           <!-- Product Overview & CTF -->
           <div class="section" ng-if="stage == 'stage5' ||  stage == 'stage3'" ng-hide="stage == 'stage5'">
             <div class="row">
               <div class="col-xs-12">
                 <div ng-if="section == 'section14' ||  section == 'section10'" ng-hide="section == 'section14'">
-                  <h3 class="margin-bottom-45">Declaration of Completion for Life Insurance Basic Product Overview and Customer Fact Find Form Training</h3>
-                  <hr>
-
+                  <h3 class="margin-bottom-45">
+                    Declaration of Completion for Life Insurance Basic Product
+                    Overview and Customer Fact Find Form Training
+                  </h3>
+                  <hr />
                   <div class="row">
                     <div class="col-xs-12 col-md-6">
                       <div class="row">
@@ -1552,7 +1602,7 @@
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
                             <input type="text" class="form-control-mcis text-center" id="nameNric" name="nameNric"
-                              disabled value="Mohammad Fareez Bin Jamal">
+                              disabled value="${eRecruitDetails.nameNric}" />
                           </div>
                         </div>
                       </div>
@@ -1567,14 +1617,15 @@
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
                             <input type="text" class="form-control-mcis text-center" id="nric" name="nric" disabled
-                              value="920505025547">
+                              value="${eRecruitDetails.nric}" />
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-xs-12 margin-top-5 margin-bottom-15">
-                      I hereby confirmed that I have completed the LIFE INSURANCE BASIC PRODUCT OVERVIEW AND CUSTOMER
-                      FACT FIND training provided by
+                      I hereby confirmed that I have completed the LIFE
+                      INSURANCE BASIC PRODUCT OVERVIEW AND CUSTOMER FACT FIND
+                      training provided by
                     </div>
                     <div class="col-xs-12 col-md-6">
                       <div class="row">
@@ -1585,8 +1636,8 @@
                         </div>
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control-mcis text-center" id="leaderName" name="leaderName" disabled
-                              value="K KUMAR A/L K KARUPPAJAH">
+                            <input type="text" class="form-control-mcis text-center" id="leaderName" name="leaderName"
+                              disabled value="${eRecruitDetails.agentName}" />
                           </div>
                         </div>
                       </div>
@@ -1600,8 +1651,8 @@
                         </div>
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control-mcis text-center" id="agentCode" name="agentCode" disabled
-                              value="A1230860">
+                            <input type="text" class="form-control-mcis text-center" id="agentCode" name="agentCode"
+                              disabled value="${eRecruitDetails.agentCode}" />
                           </div>
                         </div>
                       </div>
@@ -1615,7 +1666,8 @@
                         </div>
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control-mcis text-center" id="unitNo" name="unitNo" disabled value="199">
+                            <input type="text" class="form-control-mcis text-center" id="unitNo" name="unitNo" disabled
+                              value="${eRecruitDetails.agentUnitNo}" />
                           </div>
                         </div>
                       </div>
@@ -1630,7 +1682,7 @@
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
                             <input type="text" class="form-control-mcis text-center" id="branch" name="branch" disabled
-                              value="MCIS Melaka">
+                              value="${eRecruitDetails.agentBranch}" />
                           </div>
                         </div>
                       </div>
@@ -1644,37 +1696,37 @@
                         </div>
                         <div class="col-md-9">
                           <div class="custom-inline-form d-flex align-items-center">
-                            
                             <div class="form-group">
-                              <input name="cffDeclareDate" id="cffDeclareDate" class="form-control-mcis text-center" value="09"
-                                disabled>
+                              <input name="cffDeclareDate" id="cffDeclareDate" class="form-control-mcis"
+                                value="${eRecruitDetails.cffDeclareDate}" disabled />
                             </div>
                             <div class="form-group margin-left-15 margin-right-15">
-                              <input name="cffDeclareMonth" id="cffDeclareMonth" class="form-control-mcis text-center" value="09"
-                                disabled>
+                              <input name="cffDeclareMonth" id="cffDeclareMonth" class="form-control-mcis"
+                                value="${eRecruitDetails.cffDeclareMonth}" disabled />
                             </div>
                             <div class="form-group">
-                              <input name="cffDeclareYear" id="cffDeclareYear" class="form-control-mcis text-center" value="2021"
-                                disabled>
+                              <input name="cffDeclareYear" id="cffDeclareYear" class="form-control-mcis"
+                                value="${eRecruitDetails.cffDeclareYear}" disabled />
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <hr>
+                  <hr />
                   <div class="row margin-top-25 margin-bottom-25">
                     <div class="col-xs-12 col-md-offset-2 col-md-8">
                       <div class="checkbox custom-checkbox-mcis">
-                        <input id="cffAgree" name="cffAgree" type="checkbox" checked disabled>
+                        <input id="cffAgree" name="cffAgree" type="checkbox" checked disabled />
                         <label for="cffAgree">
                           <div class="custom-checkbox"
                             ng-class="{'custom-checkbox-error' : formValidation && multiStepForm.cffAgree.$error.required}">
                           </div>
                           <span>
-                            I hereby agree that my e-signature is required as a consent to the Declaration of Completion
-                            for Life Insurance Basic Product Overview and Customer Fact Find Form Training
+                          I hereby agree that my e-signature is required as
+                          a consent to the Declaration of Completion for
+                          Life Insurance Basic Product Overview and Customer
+                          Fact Find Form Training
                           </span>
                         </label>
                       </div>
@@ -1683,16 +1735,19 @@
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
                       <button type="button" class="btn btn-primary"
-                        ng-click="nextStep('stage4'); nextSection('section11')">Continue</button>
+                        ng-click="nextStep('stage4'); nextSection('section11')">
+                      Continue
+                      </button>
                       <button type="button" class="btn btn-primary"
-                        ng-click="backStep('stage2'); backSection('section9')">Back</button>
+                        ng-click="backStep('stage2'); backSection('section9')">
+                      Back
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
           <!-- Liam Movement -->
           <div class="section" ng-if="stage == 'stage5' ||  stage == 'stage4'" ng-hide="stage == 'stage5'">
             <div class="row">
@@ -1700,27 +1755,29 @@
                 <div ng-if="section == 'section14' ||  section == 'section11'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">Liam Movement</h3>
                   <p>Procedures for the Movement Of Agent</p>
-
-                  <hr>
-                  <h3 class="text-center employment-history-wrapper">Are you currently contracted with other insurers?
+                  <hr />
+                  <h3 class="text-center employment-history-wrapper">
+                    Are you currently contracted with other insurers?
                   </h3>
-                  <hr>
-
+                  <hr />
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
+                      <button type="button" class="btn btn-primary" ng-click="nextSection('section12')">
+                      Continue
+                      </button>
                       <button type="button" class="btn btn-primary"
-                        ng-click="nextSection('section12')">Continue</button>
-                      <button type="button" class="btn btn-primary"
-                        ng-click="backStep('stage3'); backSection('section10')">Back</button>
+                        ng-click="backStep('stage3'); backSection('section10')">
+                      Back
+                      </button>
                     </div>
                   </div>
                 </div>
                 <div ng-if="section == 'section14' ||  section == 'section12'" ng-hide="section == 'section14'">
-                  <h3 class="margin-bottom-45">LIFE INSURANCE ASSOCIATION OF MALAYSIA</h3>
+                  <h3 class="margin-bottom-45">
+                    LIFE INSURANCE ASSOCIATION OF MALAYSIA
+                  </h3>
                   <p>Procedures for the Movement Of Agent</p>
-
-                  <hr>
-
+                  <hr />
                   <h3 class="text-center">Movement of Agent</h3>
                   <p class="text-center margin-bottom-60">Section A</p>
                   <div class="row">
@@ -1734,7 +1791,7 @@
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
                             <input class="form-control-mcis" id="movementAgentTo" name="movementAgentTo"
-                              value="MCIS Insurance Berhad" disabled>
+                              value="MCIS Insurance Berhad" disabled />
                           </div>
                         </div>
                       </div>
@@ -1747,7 +1804,7 @@
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
                             <input type="text" class="form-control-mcis uppercase" id="nameNric" name="nameNric"
-                              disabled value="Mohammad Fareez Bin Jamal">
+                              disabled value="${eRecruitDetails.nameNric}" />
                           </div>
                         </div>
                       </div>
@@ -1760,7 +1817,7 @@
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
                             <input type="text" class="form-control-mcis" id="movementAgentDate" name="movementAgentDate"
-                              disabled value="23/05/2021">
+                              disabled value="23/05/2021" />
                           </div>
                         </div>
                       </div>
@@ -1769,13 +1826,14 @@
                       <div class="row">
                         <div class="col-xs-12 col-md-3">
                           <div class="form-group">
-                            <label for="salutation">Resigned From <span class="text-danger">*</span></label>
+                            <label for="salutation">Resigned From
+                            <span class="text-danger">*</span></label>
                           </div>
                         </div>
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
                             <input class="form-control-mcis" id="movementAgentFrom" name="movementAgentFrom" disabled
-                              value="Contracting Company">
+                              value="${(eRecruitDetails.movementAgentFrom)!}" />
                           </div>
                         </div>
                       </div>
@@ -1787,22 +1845,24 @@
                         </div>
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group">
-                            <input type="text" class="form-control-mcis" id="nricNo" name="nricNo" value="920505025547"
-                              disabled>
+                            <input type="text" class="form-control-mcis" id="nricNo" name="nricNo"
+                              value="${eRecruitDetails.nric}" disabled />
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="col-xs-12 col-md-3">
                           <div class="form-group">
-                            <label for="registLetterCopy">Registration Letter Copy <span
-                                class="text-danger">*</span></label>
+                            <label for="registLetterCopy">Registration Letter Copy
+                            <span class="text-danger">*</span></label>
                           </div>
                         </div>
                         <div class="col-xs-12 col-md-9">
                           <div class="form-group custom-mcis-file-input">
-                            <label for="registLetterCopy" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                            <a href="#">No file selected</a>
+                            [#if eRecruitDetails.resignLetterUUID?has_content]
+                            <a href="${eRecruitDetails.resignLetterUUID}"
+                              target="_blank"><label>ResignLetter.pdf</label></a>
+                            [/#if]
                           </div>
                         </div>
                       </div>
@@ -1816,35 +1876,33 @@
                         </div>
                         <div class="col-md-9">
                           <div class="custom-inline-form d-flex align-items-center">
-                            
                             <div class="form-group">
-                              <input name="moveAgentDate" id="moveAgentDate" class="form-control-mcis text-center" value="09"
-                                disabled>
+                              <input name="moveAgentDate" id="moveAgentDate" class="form-control-mcis text-center"
+                                disabled value="${(eRecruitDetails.moveAgentDate)!}" />
                             </div>
                             <div class="form-group margin-left-15 margin-right-15">
-                              <input name="moveAgentMonth" id="moveAgentMonth" class="form-control-mcis text-center" value="09"
-                                disabled>
+                              <input name="moveAgentMonth" id="moveAgentMonth" class="form-control-mcis text-center"
+                                disabled value="${(eRecruitDetails.moveAgentMonth)!}" />
                             </div>
                             <div class="form-group">
-                              <input name="moveAgentYear" id="moveAgentYear" class="form-control-mcis text-center" value="2021"
-                                disabled>
+                              <input name="moveAgentYear" id="moveAgentYear" class="form-control-mcis text-center"
+                                disabled value="${(eRecruitDetails.moveAgentYear)!}" />
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <hr>
+                  <hr />
                   <div class="row margin-top-25 margin-bottom-25">
                     <div class="col-xs-12 col-md-offset-3 col-md-6">
                       <div class="checkbox custom-checkbox-mcis">
-                        <input id="movementAgree" name="movementAgree" type="checkbox" checked disabled>
+                        <input id="movementAgree" name="movementAgree" type="checkbox" checked disabled />
                         <label for="movementAgree">
                           <div class="custom-checkbox"></div>
                           <span>
-                            I hereby agree that my e-signature is required as a consent for the Liam Movement of Agent
-                            Form
+                          I hereby agree that my e-signature is required as
+                          a consent for the Liam Movement of Agent Form
                           </span>
                         </label>
                       </div>
@@ -1853,43 +1911,60 @@
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
                       <button type="button" class="btn btn-primary"
-                        ng-click="nextStep('stage5'); nextSection('section13')">Continue</button>
-                      <button type="button" class="btn btn-primary" ng-click="backSection('section11')">Back</button>
+                        ng-click="nextStep('stage5'); nextSection('section13')">
+                      Continue
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="backSection('section11')">
+                      Back
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
           <!-- Nomination -->
           <div class="section" ng-if="stage == 'stage5'">
             <div class="row">
               <div class="col-xs-12">
                 <div ng-if="section == 'section14' ||  section == 'section13'" ng-hide="section == 'section14'">
                   <h3 class="margin-bottom-45">Applying for Nomination</h3>
-                  <hr>
-
+                  <hr />
                   <div class="row">
                     <div class="col-xs-12">
                       <div class="custom-inline-checkbox">
                         <span>Please tick the option where applicable: </span>
                         <div class="checkbox custom-checkbox-mcis">
-                          <input id="groupBenefit" name="groupBenefit" type="checkbox" checked>
+                          [#if eRecruitDetails.groupBenefit?? &&
+                          eRecruitDetails.groupBenefit =="1" ]
+                          <input id="groupBenefit" name="groupBenefit" type="checkbox" disabled checked />
+                          [#else]
+                          <input id="groupBenefit" name="groupBenefit" type="checkbox" disabled />
+                          [/#if]
                           <label for="groupBenefit">
                             <div class="custom-checkbox"></div>
                             <span>Group Life Insurance</span>
                           </label>
                         </div>
                         <div class="checkbox custom-checkbox-mcis">
-                          <input id="agencyBenefit" name="agencyBenefit" type="checkbox">
+                          [#if eRecruitDetails.agencyBenefit?? &&
+                          eRecruitDetails.agencyBenefit =="1" ]
+                          <input id="agencyBenefit" name="agencyBenefit" type="checkbox" disabled checked />
+                          [#else]
+                          <input id="agencyBenefit" name="agencyBenefit" type="checkbox" disabled />
+                          [/#if]
                           <label for="agencyBenefit">
                             <div class="custom-checkbox"></div>
                             <span>Agency</span>
                           </label>
                         </div>
                         <div class="checkbox custom-checkbox-mcis">
-                          <input id="commission" name="commission" type="checkbox">
+                          [#if eRecruitDetails.commision?? &&
+                          eRecruitDetails.commision =="1" ]
+                          <input id="commission" name="commission" type="checkbox" disabled checked />
+                          [#else]
+                          <input id="commission" name="commission" type="checkbox" disabled />
+                          [/#if]
                           <label for="commission">
                             <div class="custom-checkbox"></div>
                             <span>Commission</span>
@@ -1901,7 +1976,7 @@
                   <div class="tabs margin-top-25 margin-bottom-15">
                     <!-- Applicant Information -->
                     <div class="tab">
-                      <input type="checkbox" id="applicantInformation" class="custom-check" checked>
+                      <input type="checkbox" id="applicantInformation" class="custom-check" checked />
                       <div class="plus"></div>
                       <label class="tab-label" for="applicantInformation">Applicant Information</label>
                       <div class="tab-content custom-tab-content">
@@ -1915,7 +1990,7 @@
                           <div class="col-xs-12 col-md-4 pt-15">
                             <div class="form-group">
                               <input type="text" class="form-control-mcis" name="nameNric"
-                                value="Mohammad Fareez Bin Jamal" disabled>
+                                value="${eRecruitDetails.nameNric}" disabled />
                             </div>
                           </div>
                           <!-- Agent Rank -->
@@ -1926,8 +2001,8 @@
                           </div>
                           <div class="col-xs-12 col-md-1 pt-15">
                             <div class="form-group">
-                              <input type="text" class="form-control-mcis" id="agentRank" name="agentRank" value="ME"
-                                disabled>
+                              <input type="text" class="form-control-mcis" id="agentRank" name="agentRank"
+                                value="${eRecruitDetails.agentRank}" disabled />
                             </div>
                           </div>
                         </div>
@@ -1939,7 +2014,8 @@
                           </div>
                           <div class="col-xs-12 col-md-4 pt-15">
                             <div class="form-group">
-                              <input type="text" class="form-control-mcis" name="nric" value="920505025547" disabled>
+                              <input type="text" class="form-control-mcis" name="nric"
+                                value="${eRecruitDetails.nameNric}" disabled />
                             </div>
                           </div>
                           <!-- Unit Code -->
@@ -1950,8 +2026,8 @@
                           </div>
                           <div class="col-xs-12 col-md-1 pt-15">
                             <div class="form-group">
-                              <input type="text" class="form-control-mcis" id="unitCode" name="unitCode" value="199"
-                                disabled>
+                              <input type="text" class="form-control-mcis" id="unitCode" name="unitCode"
+                                value="${eRecruitDetails.agentUnitNo}" disabled />
                             </div>
                           </div>
                         </div>
@@ -1964,7 +2040,7 @@
                           <div class="col-xs-12 col-md-4 pt-15">
                             <div class="form-group">
                               <input type="text" class="form-control-mcis" name="agentCode" disabled
-                                value="920505025547">
+                                value="${eRecruitDetails.agentCode}" />
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-2 pt-15">
@@ -1975,7 +2051,7 @@
                           <div class="col-xs-12 col-md-4 pt-15">
                             <div class="form-group">
                               <input type="text" class="form-control-mcis" name="primaryHandphoneNo" disabled
-                                value="920505025547">
+                                value="${eRecruitDetails.fullPhoneNo}" />
                             </div>
                           </div>
                         </div>
@@ -1988,7 +2064,7 @@
                           <div class="col-xs-12 col-md-4 pt-15">
                             <div class="form-group">
                               <input type="text" class="form-control-mcis" id="agencyName" name="agencyName"
-                                value="Farez Agency" disabled>
+                                value="${eRecruitDetails.agencyName}" disabled />
                             </div>
                           </div>
                           <div class="col-xs-12 col-md-2 pt-15">
@@ -1998,9 +2074,8 @@
                           </div>
                           <div class="col-xs-12 col-md-4 pt-15">
                             <div class="form-group">
-                              <textarea class="form-control-mcis uppercase"
-                                value="No 18 Jalan 10 Taman Maju Padu Keluang 86000 Johor Darul Takzim malaysia"
-                                disabled></textarea>
+                              <textarea class="form-control-mcis uppercase" disabled>
+                              ${eRecruitDetails.fullAddress!}</textarea>
                             </div>
                           </div>
                         </div>
@@ -2012,8 +2087,8 @@
                           </div>
                           <div class="col-xs-12 col-md-4 pt-15">
                             <div class="form-group">
-                              <input type="email" class="form-control-mcis" name="emailAddress" value="307927@gmail.com"
-                                disabled>
+                              <input type="email" class="form-control-mcis" name="emailAddress"
+                                value="${eRecruitDetails.emailAddress}" disabled />
                             </div>
                           </div>
                         </div>
@@ -2021,15 +2096,20 @@
                     </div>
                     <!-- Group Life Insurance Benefit -->
                     <div class="tab">
-                      <input type="checkbox" id="groupLifeInsuranceTab" class="custom-check">
+                      <input type="checkbox" id="groupLifeInsuranceTab" class="custom-check" />
                       <div class="plus"></div>
                       <label class="tab-label" for="groupLifeInsuranceTab">Nominee(s) Information - Group Life Insurance
-                        Benefit</label>
+                      Benefit</label>
                       <div class="tab-content custom-tab-content">
-                        <h3>Nominee(s) Information - Group Life Insurance Benefit</h3>
-                        <p>I hereby nominate the person(s) named below as Nominee(s) to receive the sum of all my Group
-                          Life Insurance Benefit:</p>
-
+                        <h3>
+                          Nominee(s) Information - Group Life Insurance
+                          Benefit
+                        </h3>
+                        <p>
+                          I hereby nominate the person(s) named below as
+                          Nominee(s) to receive the sum of all my Group Life
+                          Insurance Benefit:
+                        </p>
                         <div class="row">
                           <div class="col-xs-12">
                             <!-- Spouse Particulars -->
@@ -2037,9 +2117,7 @@
                               <div class="with-content">
                                 <div class="row custom-row-border">
                                   <div class="col-xs-1 inblock-top">
-                                    <div class="section-label">
-                                      No.
-                                    </div>
+                                    <div class="section-label">No.</div>
                                   </div>
                                   <div class="col-xs-2 inblock-top">
                                     <div class="section-label">
@@ -2052,45 +2130,46 @@
                                     </div>
                                   </div>
                                   <div class="col-xs-3 inblock-top">
-                                    <div class="section-label">
-                                      NRIC No.
-                                    </div>
+                                    <div class="section-label">NRIC No.</div>
                                   </div>
                                   <div class="col-xs-2 inblock-top">
-                                    <div class="section-label">
-                                      Share (%)
-                                    </div>
+                                    <div class="section-label">Share (%)</div>
                                   </div>
                                 </div>
                                 <!-- 1 -->
                                 <div class="row border-top-left-right">
                                   <div class="col-xs-1 pt-15">
                                     <div class="form-group">
-                                      <label for="nomineeGroupRelationship1">1 <span class="text-danger">*</span></label>
+                                      <label for="nomineeGroupRelationship1">1
+                                      <span class="text-danger">*</span></label>
                                     </div>
                                   </div>
                                   <div class="col-xs-2 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupRelationship1" name="nomineeGroupRelationship1"
-                                        class="form-control-mcis" value="Sibling" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupRelationship1)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-4 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupName1" name="nomineeGroupName1"
-                                        class="form-control-mcis uppercase" value="Mohd Adi Bin Jamal" disabled>
+                                        class="form-control-mcis uppercase" disabled
+                                        value="${(eRecruitDetails.nomineeGroupName1)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-3 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupNRIC1" name="nomineeGroupNRIC1"
-                                        class="form-control-mcis" value="860909105767" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupNRIC1)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-2 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupShare1" name="nomineeGroupShare1"
-                                        class="form-control-mcis" value="100" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupShare1)!}" />
                                     </div>
                                   </div>
                                 </div>
@@ -2104,25 +2183,29 @@
                                   <div class="col-xs-2 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupRelationship2" name="nomineeGroupRelationship2"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupRelationship2)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-4 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupName2" name="nomineeGroupName2"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupName2)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-3 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupNRIC2" name="nomineeGroupNRIC2"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupNRIC2)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-2 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupShare2" name="nomineeGroupShare2"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupShare2)!}" />
                                     </div>
                                   </div>
                                 </div>
@@ -2136,25 +2219,29 @@
                                   <div class="col-xs-2 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupRelationship3" name="nomineeGroupRelationship3"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupRelationship3)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-4 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupName3" name="nomineeGroupName3"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupName3)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-3 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupNRIC3" name="nomineeGroupNRIC3"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupNRIC3)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-2 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupShare3" name="nomineeGroupShare3"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupShare3)!}" />
                                     </div>
                                   </div>
                                 </div>
@@ -2168,25 +2255,29 @@
                                   <div class="col-xs-2 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupRelationship4" name="nomineeGroupRelationship4"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupRelationship4)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-4 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupName4" name="nomineeGroupName4"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupName4)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-3 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupNRIC4" name="nomineeGroupNRIC4"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupNRIC4)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-2 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeGroupShare4" name="nomineeGroupShare4"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeGroupShare4)!}" />
                                     </div>
                                   </div>
                                 </div>
@@ -2194,21 +2285,38 @@
                                   <div class="col-xs-12">
                                     <h5>Note:</h5>
                                     <ol>
-                                      <li>If you are a Muslim, kindly inform you Nominee of their duties in accodance to the applicable Islamic Inheritance Laws.</li>
-                                      <li>Nominee(s) must be at least 18 years of age.</li>
-                                      <li>Photocopies of I/C (front & back) are required for both applicant and each
-                                        Nominee(s).</li>
-                                      <li>Photocopies of I/C in PDF, PNG, JPG or JPEG format only.</li>
+                                      <li>
+                                        If you are a Muslim, kindly inform you
+                                        Nominee of their duties in accodance
+                                        to the applicable Islamic Inheritance
+                                        Laws.
+                                      </li>
+                                      <li>
+                                        Nominee(s) must be at least 18 years
+                                        of age.
+                                      </li>
+                                      <li>
+                                        Photocopies of I/C (front & back) are
+                                        required for both applicant and each
+                                        Nominee(s).
+                                      </li>
+                                      <li>
+                                        Photocopies of I/C in PDF, PNG, JPG or
+                                        JPEG format only.
+                                      </li>
                                     </ol>
                                   </div>
                                 </div>
                                 <div class="row">
                                   <div class="col-xs-12">
                                     <div class="custom-inline">
-                                      <span>Applicant IC Copy <span class="text-danger">*</span></span>
+                                      <span>Applicant IC Copy</span>
                                       <div class="form-group custom-mcis-file-input">
-                                        <label for="rfpCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                                        <a href="#">IC212032.PDF</a>
+                                        [#if
+                                        eRecruitDetails.applicantGroupICUUID?has_content]
+                                        <a href="${(eRecruitDetails.applicantGroupICUUID)!}"
+                                          target="_blank">ApplicantIC.pdf</a>
+                                        [/#if]
                                       </div>
                                     </div>
                                   </div>
@@ -2216,10 +2324,13 @@
                                 <div class="row">
                                   <div class="col-xs-12">
                                     <div class="custom-inline margin-top-20">
-                                      <span>Nominee IC Copy <span class="text-danger">*</span></span>
+                                      <span>Nominee IC Copy</span>
                                       <div class="form-group custom-mcis-file-input">
-                                        <label for="rfpCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                                        <a href="#">IC093312322.JPG</a>
+                                        [#if
+                                        eRecruitDetails.nomineeGroupICUUID?has_content]
+                                        <a href="${(eRecruitDetails.nomineeGroupICUUID)!}"
+                                          target="_blank">NomineeIC.pdf</a>
+                                        [/#if]
                                       </div>
                                     </div>
                                   </div>
@@ -2232,15 +2343,19 @@
                     </div>
                     <!-- Agency Retirement Benefit -->
                     <div class="tab">
-                      <input type="checkbox" id="agencyRetirementBenefitTab" class="custom-check">
+                      <input type="checkbox" id="agencyRetirementBenefitTab" class="custom-check" />
                       <div class="plus"></div>
                       <label class="tab-label" for="agencyRetirementBenefitTab">Nominee Information - Agency Retirement
-                        Benefit</label>
+                      Benefit</label>
                       <div class="tab-content custom-tab-content">
-                        <h3>Nominee Information - Agency Retirement Benefit</h3>
-                        <p>I hereby nominate the person named below as Nominee to receive the sum of all my Agency
-                          Retirement Benefit:</p>
-
+                        <h3>
+                          Nominee Information - Agency Retirement Benefit
+                        </h3>
+                        <p>
+                          I hereby nominate the person named below as Nominee
+                          to receive the sum of all my Agency Retirement
+                          Benefit:
+                        </p>
                         <div class="row">
                           <div class="col-xs-12">
                             <!-- Spouse Particulars -->
@@ -2248,9 +2363,7 @@
                               <div class="with-content">
                                 <div class="row custom-row-border">
                                   <div class="col-xs-1 inblock-top">
-                                    <div class="section-label">
-                                      No.
-                                    </div>
+                                    <div class="section-label">No.</div>
                                   </div>
                                   <div class="col-xs-3 inblock-top">
                                     <div class="section-label">
@@ -2263,9 +2376,7 @@
                                     </div>
                                   </div>
                                   <div class="col-xs-4 inblock-top">
-                                    <div class="section-label">
-                                      NRIC No.
-                                    </div>
+                                    <div class="section-label">NRIC No.</div>
                                   </div>
                                 </div>
                                 <div class="row border-bottom border-top-left-right">
@@ -2277,19 +2388,22 @@
                                   <div class="col-xs-3 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeAgencyRelationship" name="nomineeAgencyRelationship"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeAgencyRelationship)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-4 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeAgencyName" name="nomineeAgencyName"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeAgencyName)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-4 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeAgencyNRIC" name="nomineeAgencyNRIC"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeAgencyNRIC)!}" />
                                     </div>
                                   </div>
                                 </div>
@@ -2297,10 +2411,19 @@
                                   <div class="col-xs-12">
                                     <h5>Note:</h5>
                                     <ol>
-                                      <li>Nominee(s) must be at least 18 years of age.</li>
-                                      <li>Photocopies of I/C (front & back) are required for both applicant and each
-                                        Nominee(s).</li>
-                                      <li>Photocopies of I/C in PDF, PNG, JPG or JPEG format only.</li>
+                                      <li>
+                                        Nominee(s) must be at least 18 years
+                                        of age.
+                                      </li>
+                                      <li>
+                                        Photocopies of I/C (front & back) are
+                                        required for both applicant and each
+                                        Nominee(s).
+                                      </li>
+                                      <li>
+                                        Photocopies of I/C in PDF, PNG, JPG or
+                                        JPEG format only.
+                                      </li>
                                     </ol>
                                   </div>
                                 </div>
@@ -2309,8 +2432,11 @@
                                     <div class="custom-inline">
                                       <span>Applicant IC Copy</span>
                                       <div class="form-group custom-mcis-file-input">
-                                        <label for="rfpCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                                        <a href="#"></a>
+                                        [#if
+                                        eRecruitDetails.applicantAgencyRetirementICUUID?has_content]
+                                        <a href="${(eRecruitDetails.applicantAgencyRetirementICUUID)!}"
+                                          target="_blank">ApplicantIC.pdf</a>
+                                        [/#if]
                                       </div>
                                     </div>
                                   </div>
@@ -2320,8 +2446,11 @@
                                     <div class="custom-inline margin-top-20">
                                       <span>Nominee IC Copy</span>
                                       <div class="form-group custom-mcis-file-input">
-                                        <label for="rfpCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                                        <a href="#"></a>
+                                        [#if
+                                        eRecruitDetails.nomineeAgencyRetirementICUUID?has_content]
+                                        <a href="${(eRecruitDetails.nomineeAgencyRetirementICUUID)!}"
+                                          target="_blank">NomineeIC.pdf</a>
+                                        [/#if]
                                       </div>
                                     </div>
                                   </div>
@@ -2334,14 +2463,15 @@
                     </div>
                     <!-- Commission-->
                     <div class="tab commission-tab">
-                      <input type="checkbox" id="agencyNominationTab" class="custom-check">
+                      <input type="checkbox" id="agencyNominationTab" class="custom-check" />
                       <div class="plus"></div>
                       <label class="tab-label" for="agencyNominationTab">Nominee Information - Commission</label>
                       <div class="tab-content custom-tab-content">
                         <h3>Nominee Information - Commission</h3>
-                        <p>I hereby nominate the person named below as Nominee to receive the sum of all my of
-                          commission:</p>
-
+                        <p>
+                          I hereby nominate the person named below as Nominee
+                          to receive the sum of all my of commission:
+                        </p>
                         <div class="row">
                           <div class="col-xs-12">
                             <!-- Spouse Particulars -->
@@ -2349,9 +2479,7 @@
                               <div class="with-content">
                                 <div class="row custom-row-border">
                                   <div class="col-xs-1 inblock-top">
-                                    <div class="section-label">
-                                      No.
-                                    </div>
+                                    <div class="section-label">No.</div>
                                   </div>
                                   <div class="col-xs-3 inblock-top">
                                     <div class="section-label">
@@ -2364,9 +2492,7 @@
                                     </div>
                                   </div>
                                   <div class="col-xs-4 inblock-top">
-                                    <div class="section-label">
-                                      NRIC No.
-                                    </div>
+                                    <div class="section-label">NRIC No.</div>
                                   </div>
                                 </div>
                                 <div class="row border-bottom border-top-left-right">
@@ -2378,19 +2504,22 @@
                                   <div class="col-xs-3 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeCommissionRelationship"
-                                        name="nomineeCommissionRelationship" class="form-control-mcis" value="" disabled>
+                                        name="nomineeCommissionRelationship" class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeCommissionRelationship)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-4 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeCommissionName" name="nomineeCommissionName"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeCommissionName)!}" />
                                     </div>
                                   </div>
                                   <div class="col-xs-4 pt-15">
                                     <div class="form-group">
                                       <input type="text" id="nomineeCommissionNRIC" name="nomineeCommissionNRIC"
-                                        class="form-control-mcis" value="" disabled>
+                                        class="form-control-mcis" disabled
+                                        value="${(eRecruitDetails.nomineeCommissionNRIC)!}" />
                                     </div>
                                   </div>
                                 </div>
@@ -2398,16 +2527,37 @@
                                   <div class="col-xs-12">
                                     <h5>Note:</h5>
                                     <ol>
-                                      <li>The arrangement can be referring to the Rules & Regulations in the latest <strong>Agency Handbook</strong></li>
-                                      <li>Any future residual commissions (including overriding if deceased is a leader)
-                                        for premium collected from block of business under the deceased's servicing before
-                                        event date shall continue to be payable to the next of kin. Any bonus or Balanced
-                                        Score Card (BSC) variable commission entitlement shall be subjected to the
-                                        qualification of the bonus requirement accordingly.</li>
-                                      <li>Nominee(s) must be at least 18 years of age.</li>
-                                      <li>Photocopies of I/C (front & back) are required for both applicant and each
-                                        Nominee(s).</li>
-                                      <li>Photocopies of I/C in PDF, PNG, JPG or JPEG format only.</li>
+                                      <li>
+                                        The arrangement can be referring to
+                                        the Rules & Regulations in the latest
+                                        <strong>Agency Handbook</strong>
+                                      </li>
+                                      <li>
+                                        Any future residual commissions
+                                        (including overriding if deceased is a
+                                        leader) for premium collected from
+                                        block of business under the deceased's
+                                        servicing before event date shall
+                                        continue to be payable to the next of
+                                        kin. Any bonus or Balanced Score Card
+                                        (BSC) variable commission entitlement
+                                        shall be subjected to the
+                                        qualification of the bonus requirement
+                                        accordingly.
+                                      </li>
+                                      <li>
+                                        Nominee(s) must be at least 18 years
+                                        of age.
+                                      </li>
+                                      <li>
+                                        Photocopies of I/C (front & back) are
+                                        required for both applicant and each
+                                        Nominee(s).
+                                      </li>
+                                      <li>
+                                        Photocopies of I/C in PDF, PNG, JPG or
+                                        JPEG format only.
+                                      </li>
                                     </ol>
                                   </div>
                                 </div>
@@ -2416,8 +2566,11 @@
                                     <div class="custom-inline">
                                       <span>Applicant IC Copy</span>
                                       <div class="form-group custom-mcis-file-input">
-                                        <label for="rfpCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                                        <a href="#"></a>
+                                        [#if
+                                        eRecruitDetails.applicantCommissionICUUID?has_content]
+                                        <a href="${(eRecruitDetails.applicantCommissionICUUID)!}"
+                                          target="_blank">ApplicantIC.pdf</a>
+                                        [/#if]
                                       </div>
                                     </div>
                                   </div>
@@ -2427,8 +2580,11 @@
                                     <div class="custom-inline margin-top-20">
                                       <span>Nominee IC Copy</span>
                                       <div class="form-group custom-mcis-file-input">
-                                        <label for="rfpCert" class="btn btn-default btn gray minwidth-150px" disabled>BROWSE...</label>
-                                        <a href="#"></a>
+                                        [#if
+                                        eRecruitDetails.nomineeCommissionICUUID?has_content]
+                                        <a href="${(eRecruitDetails.nomineeCommissionICUUID)!}"
+                                          target="_blank">NomineeIC.pdf</a>
+                                        [/#if]
                                       </div>
                                     </div>
                                   </div>
@@ -2440,15 +2596,16 @@
                       </div>
                     </div>
                   </div>
-                  <hr>
+                  <hr />
                   <div class="row margin-top-25 margin-bottom-25">
                     <div class="col-xs-12 col-md-offset-2 col-md-8">
                       <div class="checkbox custom-checkbox-mcis">
-                        <input id="nominationAgree" name="nominationAgree" type="checkbox" checked disabled>
+                        <input id="nominationAgree" name="nominationAgree" type="checkbox" checked disabled />
                         <label for="nominationAgree">
                           <div class="custom-checkbox"></div>
                           <span>
-                            I hereby agree that my e-signature is required as a consent for the nomination form
+                          I hereby agree that my e-signature is required as
+                          a consent for the nomination form
                           </span>
                         </label>
                       </div>
@@ -2456,104 +2613,46 @@
                   </div>
                   <div class="row">
                     <div class="col-md-12 d-flex-center">
-                      <button type="button" class="btn btn-primary" ng-click="nextSection('section14')">APPROVE</button>
-                      <button type="button" class="btn btn-primary" ng-click="rejectModal()">REJECT</button>
+                      [#if ctx.getAttribute('isApproved')]
+                      <button type="submit" class="btn btn-primary" disabled>
+                      APPROVE
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="rejectModal()" disabled>
+                      REJECT
+                      </button>
+                      [#else]
+                      <button type="submit" class="btn btn-primary">
+                      APPROVE
+                      </button>
+                      <button type="button" class="btn btn-primary" ng-click="rejectModal()">
+                      REJECT
+                      </button>
+                      [/#if]
                       <button type="button" class="btn btn-primary"
-                        ng-click="backStep('stage4'); backSection('section12')">BACK</button>
+                        ng-click="backStep('stage4'); backSection('section12')">
+                      BACK
+                      </button>
                     </div>
-                  </div>
-                </div>
-                <!-- Declaration -->
-                <div class="agreement-section" ng-if="section == 'section14'">
-                  <h3 class="margin-bottom-45">Declaration of Completion for Life Insurance Basic Product Overview and
-                    Customer Face Find Form Training</h3>
-
-                  <hr>
-
-                  <div class="row">
-                    <div class="col-xs-12 col-md-6">
-                      <div class="row">
-                        <div class="col-xs-12 col-md-3">
-                          <label>Name as per NRIC</label>
-                        </div>
-                        <div class="col-xs-12 col-md-9">
-                          <div class="form-group">
-                            <input type="text" class="form-control-mcis uppercase" id="nameNric" name="nameNric"
-                              disabled value="Mohammad Fareez Bin Jamal">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                      <div class="row">
-                        <div class="col-xs-12 col-md-3">
-                          <label>Agent Code:</label>
-                        </div>
-                        <div class="col-xs-12 col-md-9">
-                          <div class="form-group">
-                            <input type="text" class="form-control-mcis text-center" id="agentCode" name="agentCode" disabled
-                              value="A1230860">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                      <div class="row">
-                        <div class="col-xs-12 col-md-3">
-                          <label>Unit No:</label>
-                        </div>
-                        <div class="col-xs-12 col-md-9">
-                          <div class="form-group">
-                            <input type="text" class="form-control-mcis text-center" id="unitNo" name="unitNo" disabled value="199">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 col-md-6">
-                      <div class="row">
-                        <div class="col-xs-12 col-md-3">
-                          <label>Branch:</label>
-                        </div>
-                        <div class="col-xs-12 col-md-9">
-                          <div class="form-group">
-                            <input type="text" class="form-control-mcis text-center" id="branch" name="branch" disabled
-                              value="MCIS Melaka">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-xs-12 margin-top-5 margin-bottom-15">
-                      I hereby confirmed that I have provided the LIFE INSURANCE BASIC PRODUCT OVERVIEW AND CUSTOMER
-                      FACT FIND training to the above new agent on the date stated above
-                    </div>
-                  </div>
-
-                  <hr>
-                  <div class="text-center">
-                    <button type="button" class="btn btn-primary" ng-click="triggerApplicantModal()">ACCEPT &
-                      SIGN</button>
-                    <button type="button" class="btn btn-primary"
-                      ng-click="backStep('stage2'); backSection('section9')">Back</button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-
           <input type="file" class="hidden" id="applicantEsigndraw" name="applicantEsigndraw"
-            ng-model="formParams.applicantEsigndraw" onchange="angular.element(this).scope().fileUploaded(event)" data-extension="jpeg,jpg,png">
-          <input type="text" class="hidden" id="rejectReason" name="rejectReason" ng-model="formParams.rejectReason">
+            ng-model="formParams.applicantEsigndraw" onchange="angular.element(this).scope().fileUploaded(event)"
+            data-extension="jpeg,jpg,png" />
+          <input type="text" class="hidden" id="rejectReason" name="rejectReason" ng-model="formParams.rejectReason" />
         </div>
       </form>
       [/#if]
     </div>
-
     <div class="modal fade" tabindex="-1" role="dialog" id="reject-reason-modal">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
             <h4 class="modal-title">What is the reason for the rejection?</h4>
           </div>
           <div class="modal-body margin-top-25">
@@ -2562,64 +2661,72 @@
                 <div class="row">
                   <div class="col-xs-12 col-md-12 inblock-top">
                     <div class="form-group">
-                      <label>Please enter the reason below (Not more than 100 words). <span class="text-danger">*</span></label>
+                      <label>Please enter the reason below (Not more than 100
+                      words). <span class="text-danger">*</span></label>
                     </div>
                   </div>
                   <div class="col-xs-12 col-md-12 inblock-top">
                     <div class="form-group">
                       <textarea rows="10" ng-model="formParams.rejectReason" class="form-control-mcis" required
-                      ng-class="{'error': formModalValidation && rejectReasonForm.$error}" maxlength="100"></textarea>
-                      <span ng-show="formModalValidation && rejectReasonForm.$error"
-                        class="small text-danger">
-                        This field is required
+                        ng-class="{'error': formModalValidation && rejectReasonForm.$error}" maxlength="100"></textarea>
+                      <span ng-show="formModalValidation && rejectReasonForm.$error" class="small text-danger">
+                      This field is required
                       </span>
                     </div>
                   </div>
                 </div>
                 <div class="d-flex-center">
-                  <button type="button" class="btn btn-primary" ng-click="submitRejectReason()">CONFIRM &
-                    SUBMIT</button>
-                  <button type="button" class="btn btn-default" data-dismiss="modal">CANCEL</button>
+                  <button type="button" class="btn btn-primary" ng-click="submitRejectReason()">
+                  CONFIRM & SUBMIT
+                  </button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">
+                  CANCEL
+                  </button>
                 </div>
               </div>
             </form>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
     <div class="modal fade" tabindex="-1" role="dialog" id="applicant-esign-modal">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                aria-hidden="true">&times;</span></button>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
             <h4 class="modal-title">e-Signature</h4>
           </div>
           <div class="modal-body margin-top-25">
             <div>
               <!-- Nav tabs -->
               <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#draw" aria-controls="draw" role="tab"
-                    data-toggle="tab">Draw</a></li>
-                <li role="presentation"><a href="#upload" aria-controls="upload" role="tab" data-toggle="tab">Upload</a>
+                <li role="presentation" class="active">
+                  <a href="#draw" aria-controls="draw" role="tab" data-toggle="tab">Draw</a>
+                </li>
+                <li role="presentation">
+                  <a href="#upload" aria-controls="upload" role="tab" data-toggle="tab">Upload</a>
                 </li>
               </ul>
-
               <!-- Tab panes -->
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="draw">
-
                   <div id="applicant-signature-pad" class="signature-pad">
                     <div class="signature-pad--body">
-                      <canvas style="touch-action: none;" height="400px"></canvas>
+                      <canvas style="touch-action: none" height="400px"></canvas>
                     </div>
                     <div class="signature-pad--footer">
                       <div class="signature-pad--actions">
                         <div>
                           <!-- <button type="button" class="btn btn-primary">Upload</button> -->
                           <button type="button" class="btn btn-primary"
-                            ng-click="clearSignaturePad('applicant-signature-pad')">Clear</button>
+                            ng-click="clearSignaturePad('applicant-signature-pad')">
+                          Clear
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -2628,8 +2735,10 @@
                 <div role="tabpanel" class="tab-pane" id="upload">
                   <div class="signature-pad">
                     <label class="signature-pad--body upload-pad--body" dropzone input-binding="applicantEsigndraw">
-                      {{ formParams.applicantEsigndraw ? formParams.applicantEsigndraw.name : 'Drag a file into this area or select a file
-                      (JPEG / JPG / PNG file only)'}}
+                    {{ formParams.applicantEsigndraw ?
+                    formParams.applicantEsigndraw.name : 'Drag a file into
+                    this area or select a file (JPEG / JPG / PNG file
+                    only)'}}
                     </label>
                     <div class="signature-pad--footer">
                       <div class="signature-pad--actions">
@@ -2682,15 +2791,16 @@
                     <div class="col-xs-12">
                       <div class="checkbox custom-checkbox-mcis">
                         <input id="applicantAgreeEsign" name="applicantAgreeEsign" type="checkbox"
-                          ng-model="formParams.applicantAgreeEsign" ng-true-value="1" ng-false-value="0">
+                          ng-model="formParams.applicantAgreeEsign" ng-true-value="1" ng-false-value="0" />
                         <label for="applicantAgreeEsign">
                           <div class="custom-checkbox"
                             ng-class="{'custom-checkbox-error' : formValidation && multiStepForm.codeOfEthicsAgreeEsign.$error.required}">
                           </div>
                           <span class="small">
-                            By confirming the below, I agree that my electronic signature will be the representation of
-                            my
-                            signature for all purpose in the MCIS LIFE online application.
+                          By confirming the below, I agree that my
+                          electronic signature will be the representation of
+                          my signature for all purpose in the MCIS LIFE
+                          online application.
                           </span>
                         </label>
                       </div>
@@ -2698,16 +2808,23 @@
                   </div>
                   <div class="text-center">
                     <button type="button" class="btn btn-primary" ng-disabled="!formParams.applicantAgreeEsign"
-                      ng-click="confirmESign('applicant-signature-pad')">CONFIRM &
-                      SUBMIT</button>
+                      ng-click="confirmESign('applicant-signature-pad')">
+                    CONFIRM & SUBMIT
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div><!-- /.modal-content -->
-      </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+    <div class="modal fade" id="dialog-loader" tabindex="-1">
+      <div class="loader"></div>
+    </div>
   </div>
 </body>
 <script src="review-main.js"></script>

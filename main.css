@@ -527,7 +527,7 @@ label {
 
 .flex-50 {
   flex-basis: 50%;
-  padding: 0 16px;
+  padding: 0;
 }
 
 .margin-right-0 {
@@ -549,15 +549,33 @@ label {
   display: block !important;
 }
 
+.d-none {
+  display: none;
+}
+.d-block {
+  display: block;
+}
+
 .agent-details-wrapper {
   display: flex;
   justify-content: flex-end;
 }
 
 .agent-details-wrapper .agent-details {
-  display: flex;
-  align-items: center;
   color: #707070;
+  display: block;
+  text-align: right;
+  flex-grow: 1;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+
+.agent-details-wrapper .agent-details > div:first-child {
+  border-bottom: 1px solid #707070;
+}
+
+.agent-details-wrapper div.margin-left-35 {
+  display: none;
 }
 
 .border-black {
@@ -594,48 +612,84 @@ ol li {
 }
 
 .flex-wrap {
-  flex-wrap: wrap
+  flex-wrap: wrap;
 }
 
-.commission-tab .nomination-accordion .with-content{
-  max-width: 612px;
+.commission-tab .nomination-accordion .with-content {
+  min-width: 612px;
 }
 
-.commission-tab .nomination-accordion .with-content ol{
+.commission-tab .nomination-accordion .with-content ol {
   white-space: normal;
 }
 
-@media only screen and (max-width: 375px) {
+.margin-top-10 {
+  margin-top: 10px;
+}
+
+@media only screen and (max-width: 424px) {
   .d-flex.flex-wrap {
     flex-direction: column;
-    align-items: stretch
+    align-items: stretch;
   }
   .custom-inline-form {
-    flex-direction: column
+    flex-direction: column;
   }
   .custom-inline-form .form-group {
-    width: 100%!important;
-    margin-left: 0!important;
-    margin-right: 0!important;
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
   .custom-inline-form .form-group select,
   .custom-inline-form .form-group input {
-    width: 100%!important;
+    width: 100% !important;
   }
 }
 
+@media only screen and (min-width: 425px) {
+  .custom-inline-form .form-group select {
+    min-width: 120px;
+  }
+}
 
+@media only screen and (min-width: 520px) {
+  .agent-details-wrapper {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .agent-details-wrapper .agent-details {
+    display: flex;
+    align-items: center;
+    flex-grow: 0;
+    margin-right: 45px;
+  }
+
+  .agent-details-wrapper .agent-details > div:first-child {
+    border-bottom: none;
+  }
+
+  .agent-details-wrapper div.margin-left-35 {
+    display: block;
+  }
+}
 @media only screen and (min-width: 768px) {
-  .movement-agent-inline-form > *{
+  .movement-agent-inline-form > * {
     display: inline-block;
-    width: auto!important;
+    width: auto !important;
     /* margin-left: 15px; */
     margin-right: 15px;
+  }
+  .d-sm-block {
+    display: block;
+  }
+  .d-sm-none {
+    display: none;
   }
 }
 @media only screen and (min-width: 992px) {
   .section {
-    padding: 0
+    padding: 0;
   }
   .erecruit-form {
     padding: 20px 60px 10px 60px;
@@ -649,7 +703,7 @@ ol li {
   .flex-md-row {
     flex-direction: row;
   }
-  
+
   .flex-md-column {
     flex-direction: column;
   }
@@ -665,7 +719,7 @@ ol li {
   }
 
   .text-md-center {
-    text-align: center
+    text-align: center;
   }
 
   .text-md-right {
@@ -676,11 +730,11 @@ ol li {
     align-items: center;
     flex-direction: row;
   }
-  
+
   .custom-inline-checkbox .custom-checkbox-mcis {
     margin: 0 1.75rem;
   }
-  
+
   .with-heading-wrapper .with-content {
     display: block;
     /* float: left; */
@@ -694,7 +748,7 @@ ol li {
     margin-top: 0px;
     margin-left: 15px;
   }
-  
+
   .custom-inline-form > span {
     display: block;
     flex-direction: auto;
@@ -704,15 +758,30 @@ ol li {
     overflow-x: auto;
     white-space: normal;
   }
-  .movement-agent-inline-form .form-group{
+  .movement-agent-inline-form .form-group {
     /* margin-bottom: 0; */
   }
 
-  .commission-tab .nomination-accordion .with-content{
+  .commission-tab .nomination-accordion .with-content {
     max-width: none;
   }
-  
-  .commission-tab .nomination-accordion .with-content ol{
+
+  .commission-tab .nomination-accordion .with-content ol {
     white-space: auto;
+  }
+
+  .d-md-none {
+    display: none;
+  }
+  .d-md-block {
+    display: block;
+  }
+
+  .margin-md-right-50 {
+    margin-right: 50px;
+  }
+
+  .flex-50 {
+    padding: 0 16px;
   }
 }
